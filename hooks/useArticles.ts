@@ -1,4 +1,3 @@
-import { getArticlesWithTagAPI } from '@/services/articles';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { RefObject } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
@@ -24,22 +23,25 @@ const useArticles = ({
   } = useInfiniteQuery({
     queryKey: ['articles', tab],
     queryFn: async ({ pageParam = 0 }) => {
+      let query = '';
       switch (tab) {
         case 'global':
-          return await fetch(`http://localhost:3000/api/articles?page=${pageParam}`).then(res => res.json());
+          query = `?page=${pageParam}`;
+          break;
         case 'my':
-          return await fetch(`http://localhost:3000/api/articles/my?username=${username}&page=${pageParam}`).then(res =>
-            res.json()
-          );
+          query = `/my?username=${username}&page=${pageParam}`;
+          break;
         case 'favorited':
-          return await fetch(`http://localhost:3000/api/articles?username=${username}&page=${pageParam}`).then(res =>
-            res.json()
-          );
+          query = `?username=${username}&page=${pageParam}`;
+          break;
         case 'your':
-          return await fetch(`http://localhost:3000/api/articles/feed?page=${pageParam}`).then(res => res.json());
+          query = `/feed?page=${pageParam}`;
+          break;
         default:
-          return await getArticlesWithTagAPI(tab, pageParam);
+          query = `/tag?tag=${tab}&page=${pageParam}`;
       }
+
+      return await fetch(`http://localhost:3000/api/articles${query}`).then(res => res.json());
     },
     getNextPageParam: (lastPage, pages) => {
       const totalPage = Math.ceil(lastPage.articlesCount / 10);

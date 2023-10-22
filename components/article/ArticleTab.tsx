@@ -54,14 +54,14 @@ const ArticleTab = () => {
           Your Feed
         </li>
       )}
-      {email && !isProfile && (
+      {
         <li
           className={`${articleTabItem} ${tab === 'global' ? articleTabItemActivate : articleTabItemDisable}`}
           onClick={() => handleTabClick('global')}
         >
           Global Feed
         </li>
-      )}
+      }
 
       {!TABS.includes(tab) && <li className={`${articleTabItem} ${articleTabItemActivate}`}># {tab}</li>}
     </ul>

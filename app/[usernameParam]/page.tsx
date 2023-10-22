@@ -8,19 +8,23 @@ import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 
 const ArticleTab = dynamic(() => import('@/components/article/ArticleTab'), { ssr: false });
+
 type Props = {
-  params: { username: string };
+  params: { usernameParam: string };
 };
-const ProfilePage = ({ params: { username } }: Props) => {
-  const { profile } = useProfile({ username });
+
+const ProfilePage = ({ params: { usernameParam } }: Props) => {
+  const {
+    profile: { username, following, image },
+  } = useProfile({ username: usernameParam });
 
   return (
     <section>
-      <ProfileBox username={profile.username} following={profile.following} image={profile.image} />
+      <ProfileBox username={username} following={following} image={image} />
       <div className={container}>
         <ArticleTab />
         <Suspense fallback={<div>리스트 로딩 중...</div>}>
-          <ArticleList username={profile.username} />
+          <ArticleList username={username} />
         </Suspense>
       </div>
     </section>

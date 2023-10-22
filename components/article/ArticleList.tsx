@@ -13,15 +13,15 @@ const ArticleList = ({ username }: Props) => {
   const targetRef = useRef(null);
   const { tab } = useCurrentTab();
   const { articlesData } = useArticles({ targetRef, tab, username });
-
+  const noData = articlesData?.pages?.at(0)?.articles?.length === 0;
   return (
     <div>
-      {articlesData?.pages?.at(0)?.articles?.length === 0 ? (
+      {noData ? (
         '데이터가 없습니다.'
       ) : (
         <div>
-          {articlesData?.pages.map((group, i) => (
-            <div key={i}>
+          {articlesData?.pages.map((group, index) => (
+            <div key={index}>
               {group?.articles?.map((article: Article) => <ArticlePreview key={article.slug} article={article} />)}
             </div>
           ))}

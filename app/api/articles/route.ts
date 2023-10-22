@@ -12,8 +12,8 @@ export async function GET(request: NextRequest) {
   if (username) {
     const { articles, articlesCount } = await getArticlesWithFavoritedAPI(username, token, Number(page));
     return NextResponse.json({ articles, articlesCount });
-  } else {
-    const { articles, articlesCount } = await getArticlesAPI(token, Number(page));
-    return NextResponse.json({ articles, articlesCount });
   }
+
+  const { articles, articlesCount } = await getArticlesAPI(token, Number(page));
+  return NextResponse.json({ articles, articlesCount });
 }

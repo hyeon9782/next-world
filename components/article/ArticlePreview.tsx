@@ -8,9 +8,10 @@ import { fillGreenButton, flex, flexBetween, greenButton } from '@/styles/common
 import { useQueryClient } from '@tanstack/react-query';
 import useCurrentTab from '@/stores/useCurrentTab';
 import useArticles from '@/hooks/useArticles';
+import { Article } from '@/types/api/articles';
 
 type Props = {
-  article: any;
+  article: Article;
 };
 const ArticlePreview = ({
   article: { title, description, favorited, favoritesCount, tagList, author, createdAt, slug },

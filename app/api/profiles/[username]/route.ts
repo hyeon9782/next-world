@@ -3,9 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 async function GET(req: NextRequest, route: { params: { username: string } }) {
   const username = route.params.username;
-  console.log('route User Name' + username);
-  console.log(username.replace('@', ''));
-
   const token = req.cookies.get('token')?.value || '';
 
   try {
@@ -14,9 +11,6 @@ async function GET(req: NextRequest, route: { params: { username: string } }) {
         Authorization: `Token ${token}`,
       },
     });
-    console.log('route');
-
-    console.log(response);
 
     return NextResponse.json({ message: 'Get a Profile Success', response });
   } catch (err) {
