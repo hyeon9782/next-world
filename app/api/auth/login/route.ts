@@ -15,6 +15,8 @@ export async function POST(request: NextRequest) {
 
     response.cookies.set('token', res.user.token, {
       httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
       path: '/',
     });
 
