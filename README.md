@@ -1,6 +1,5 @@
 # Next World
-
-### Real World에서 제공해주는 API를 활용하여 블로그를 개발한 프로젝트입니다.
+### 실무에서 많이 사용하는 기술 스택을 학습하기 위해 기존에 경험하지 못한 기술을 사용하여 블로그를 구현했습니다.
 
 ## 프로젝트 목표
 
@@ -52,26 +51,30 @@
 
 ### 프로필 페이지
 
-## 주요 기능
+## What I Did
 
 - Article CRUD 기능 구현 (전체, 태그, 좋아요, 팔로우)
 - Comment CRD 기능 구현
 - User & Auth 기능 구현 (로그인, 회원가입, 정보 수정)
 - 좋아요 & 팔로우 기능 구현
 
-## Future Works
+## Will Update
 
-- [ ] cookies 넣는 부분 util 함수로 빼기
-- [ ] route handler Response 일관성 있게 통일하기
-- [ ] Error Message에 따라 알맞은 에러 처리
-- [ ] 사용하지 않는 함수들 제거하기
-- [ ] 좋아요 & 팔로우 버튼
-  - [ ] Optimistic Updates를 활용한 사용자 경험 향상
-  - [ ] 일관된 UI를 위해 button 크기 고정 (좋아요 수가 99개가 넘어갈 경우 99+로 표시)
-- [ ] ArticlePreview
-  - [ ] 제목 크기 고정 및 크기를 넘어가면 ... 처리
-  - [ ] 한 번 봤던 게시글 표시하기 (체크 표시 또는 배경색을 다르게)
-- [ ] alert을 사용하지 않고 Dialog 컴포넌트 구현
-- [ ] 페이지 별 스켈레톤 UI 적용
-- [ ] Vanilla Extract 기능을 활용하여 CSS 정리 (급하게 하느라 너무 막 짠 거 같습니다..)
-- [ ] 테스트 코드 추가
+- UX 증대를 위해 Optimistic Updates를 활용한 좋아요 & 팔로우 버튼 리팩토링
+- Route Handler Response 일관성 있게 통일하기
+- Error Message에 따라 알맞은 에러 처리
+- alert을 사용하지 않고 Dialog 컴포넌트 구현
+- 페이지 단위 스켈레톤 UI 적용
+
+## Trouble Shooting
+
+로그인을 하고 데이터를 저장하는 부분에서 XSS, CSRF, MITM 등 다양한 보안적인 위험이 있다는 것을 확인했습니다. Next
+World는 Server Engineer가 없는 개인 프로젝트였기 때문에 현재 상황에서 적용할 수 있는 조치를 하고자 했습니다.
+
+- 로그인 했을 때 반환 받은 유저 정보는 localStorage에 token은 cookies에 저장했습니다.
+- MITM를 방지하기 위해 Secure 속성을 사용했습니다.
+- XSS 공격을 방지하기 위해 HttpOnly 속성을 사용했습니다.
+- CSRF 공격을 방지하기 위해 SameSite 속성을 사용했습니다.
+- 하지만 HttpOnly 속성으로 인해 cookies를 클라이언트에서 접근할 수 없는 문제가 생겼습니다.
+- 이러한 문제를 해결하고자 route.ts 파일을 proxy처럼 사용해 api를 호출할 때 token 값을 넣어주는 방식을 사용했습니다.
+
