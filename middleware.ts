@@ -27,6 +27,6 @@ export const config = {
     '/register',
     '/api/user',
     '/api/articles/favorite/:path*',
-    '/api/profiles',
+    '/api/profiles/:path*',
   ],
 };
