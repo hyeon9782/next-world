@@ -1,4 +1,5 @@
 import SideBar from '@/components/layouts/SideBar';
+import ConfirmDialog from '@/composables/ConfirmDialog';
 
 import { articleContainer } from '@/styles/article.css';
 import { container, flex, textCenter } from '@/styles/common.css';
@@ -32,6 +33,7 @@ export default function Page() {
           </Suspense>
         </div>
       </main>
+      <ConfirmDialog />
     </section>
   );
 }
