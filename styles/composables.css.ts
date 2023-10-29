@@ -23,6 +23,21 @@ export const confirmDialog = style({
   padding: '10px',
 });
 
+export const confirmHeader = style({
+  height: '15%',
+  fontWeight: 'bold',
+});
+
+export const confirmSection = style({
+  height: '70%',
+});
+
+export const confirmFooter = style({
+  height: '15%',
+  display: 'flex',
+  justifyContent: 'space-around',
+});
+
 export const alertDialog = style({
   position: 'absolute',
   top: '20%',
@@ -37,6 +52,7 @@ export const alertDialog = style({
 
 export const alertHeader = style({
   height: '15%',
+  fontWeight: 'bold',
 });
 
 export const alertSection = style({
