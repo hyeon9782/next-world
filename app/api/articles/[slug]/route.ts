@@ -13,7 +13,17 @@ async function GET(req: NextRequest, route: { params: { slug: string } }) {
       },
     });
 
-    return NextResponse.json({ message: 'Article Get Success', success: true, data: res });
+    return NextResponse.json(
+      { message: 'Article Get Success', success: true, data: res },
+      {
+        status: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        },
+      }
+    );
   } catch (error: any) {
     console.log(error);
     return NextResponse.json({ error: error.message }, { status: 400 });
