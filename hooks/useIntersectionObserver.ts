@@ -1,6 +1,6 @@
 import { RefObject, useEffect } from 'react';
 
-const useIntersectionObserver = (cb: () => void, ref: RefObject<HTMLElement>) => {
+const useIntersectionObserver = (cb: () => void, ref: RefObject<HTMLElement> | undefined) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => {

@@ -1,6 +1,15 @@
 import { style } from '@vanilla-extract/css';
 
-const responsiveStyle = ({ tablet, desktop }) => ({
+export type ResponsiveStyleParams = {
+  tablet: {
+    width: string;
+  };
+  desktop: {
+    width: string;
+  };
+};
+
+const responsiveStyle = ({ tablet, desktop }: ResponsiveStyleParams) => ({
   '@media': {
     'screen and (min-width: 768px)': tablet,
     'screen and (min-width: 1024px)': desktop,

@@ -1,7 +1,7 @@
 'use client';
 
 import { grayButton, greenButton, redButton } from '@/styles/common.css';
-import { Button } from '@/types';
+import { Button } from '@/types/props/composables';
 
 const Button = ({ onClick, children, type }: Button) => {
   return (
@@ -11,8 +11,8 @@ const Button = ({ onClick, children, type }: Button) => {
   );
 };
 
-function getButtonStyle(type: string): React.JSX.Element {
-  let classType = <></>;
+function getButtonStyle(type: string): string {
+  let classType = '';
   switch (type) {
     case 'green':
       classType = greenButton;

@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
-import { alignCenter, flexCenter, flexRow } from './common.css';
+import { ResponsiveStyleParams, alignCenter, flexCenter, flexRow } from './common.css';
 
-const responsiveStyle = ({ tablet, desktop }) => ({
+const responsiveStyle = ({ tablet, desktop }: ResponsiveStyleParams) => ({
   '@media': {
     'screen and (min-width: 768px)': tablet,
     'screen and (min-width: 1024px)': desktop,

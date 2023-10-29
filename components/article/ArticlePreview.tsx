@@ -14,7 +14,7 @@ type Props = {
   article: Article;
 };
 const ArticlePreview = ({
-  article: { title, description, favorited, favoritesCount, tagList, author, createdAt, slug },
+  article: { title, description, favorited, favoritesCount, tagList, author, createdAt, slug = 'asd' },
 }: Props) => {
   const router = useRouter();
   const { tab } = useCurrentTab();
