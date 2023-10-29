@@ -10,7 +10,8 @@ import UserBox from '@/components/user/UserBox';
 import useUserStore from '@/stores/useUserStore';
 import { articleContent, articleDetailTitle } from '@/styles/article.css';
 import { container, flex, justifyCenter, paddingTB } from '@/styles/common.css';
-import { User } from '@/types';
+import { User } from '@/types/api/users';
+
 import { useQuery } from '@tanstack/react-query';
 import React, { Suspense } from 'react';
 type Props = {

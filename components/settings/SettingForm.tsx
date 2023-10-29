@@ -3,7 +3,9 @@ import useUserStore from '@/stores/useUserStore';
 import { articleTextarea } from '@/styles/article.css';
 import { input } from '@/styles/common.css';
 import { settingForm, updateButton } from '@/styles/settings.css';
-import { User, UserAction } from '@/types';
+import { User } from '@/types/api/users';
+import { UserAction } from '@/types/store/userStore';
+
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';

@@ -1,8 +1,7 @@
-import * as styles from '@/styles/layout.css';
-import { Input } from '@/types';
+import { Input } from '@/types/props/composables';
 
 const Input = ({ placeholder }: Input) => {
-  return <input type="text" className={styles.input} placeholder={placeholder} />;
+  return <input type="text" placeholder={placeholder} />;
 };
 
 export default Input;
