@@ -1,15 +1,16 @@
 'use client';
-import useModals from '@/hooks/useModals';
 import ConfirmModal from './ConfirmModal';
 import AlertModal from './AlertModal';
+import { ComponentProps, FunctionComponent } from 'react';
+import useModalsStore from '@/stores/useModalStore';
 
 export const modals = {
-  confirm: ConfirmModal,
-  alert: AlertModal,
+  confirm: ConfirmModal as FunctionComponent<ComponentProps<typeof ConfirmModal>>,
+  alert: AlertModal as FunctionComponent<ComponentProps<typeof AlertModal>>,
 };
 
 const Modals = () => {
-  const { modals } = useModals();
+  const { modals } = useModalsStore();
   return (
     <>
       {modals.map(({ Component, props }, idx) => {

@@ -1,7 +1,6 @@
 'use client';
-import { modals } from '@/composables/Modals';
+
 import useAuth from '@/hooks/useAuth';
-import useModals from '@/hooks/useModals';
 import useUserStore from '@/stores/useUserStore';
 import { form } from '@/styles/account.css';
 import { fillGreenButton, input } from '@/styles/common.css';
@@ -14,8 +13,6 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 const SignInForm = () => {
   const router = useRouter();
   const { saveUserInfo } = useUserStore() as UserAction;
-
-  const { openModal, closeModal } = useModals();
 
   const [loginUser, setLoginUser] = useState<LoginUser>({
     email: '',
@@ -50,50 +47,29 @@ const SignInForm = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit} className={form}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          className={input}
-          onChange={handleChange}
-          value={loginUser.email}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          className={input}
-          onChange={handleChange}
-          value={loginUser.password}
-          required
-        />
-        <div className={buttonBox}>
-          <input type="submit" value={'Sign in'} className={fillGreenButton} disabled={false} />
-        </div>
-      </form>
-      <button
-        className={fillGreenButton}
-        onClick={() =>
-          openModal(modals.confirm, {
-            title: 'Next World',
-            content: '컨펌 모달 입니다.',
-            onClose: () => {
-              console.log('닫기');
-              closeModal(modals.confirm);
-            },
-            onSubmit: () => {
-              console.log('확인');
-              closeModal(modals.confirm);
-            },
-          })
-        }
-      >
-        모달
-      </button>
-    </>
+    <form onSubmit={handleSubmit} className={form}>
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        className={input}
+        onChange={handleChange}
+        value={loginUser.email}
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        className={input}
+        onChange={handleChange}
+        value={loginUser.password}
+        required
+      />
+      <div className={buttonBox}>
+        <input type="submit" value={'Sign in'} className={fillGreenButton} disabled={false} />
+      </div>
+    </form>
   );
 };
 

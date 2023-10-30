@@ -1,4 +1,7 @@
 'use client';
+import { modals } from '@/composables/Modals';
+import { HTTP_METHOD } from '@/constants/api';
+import useModalsStore from '@/stores/useModalStore';
 import useUserStore from '@/stores/useUserStore';
 import { articleTextarea } from '@/styles/article.css';
 import { input } from '@/styles/common.css';
@@ -13,6 +16,8 @@ import { useState } from 'react';
 const SettingForm = () => {
   const router = useRouter();
 
+  const { openModal, closeModal } = useModalsStore();
+
   const { updateUser, email, username, image, bio } = useUserStore() as User & UserAction;
 
   // 초기화 함수로 전환
@@ -23,14 +28,22 @@ const SettingForm = () => {
     email,
     password: '',
   });
+
   const { mutate, isLoading } = useMutation({
     mutationFn: (formData: any) =>
-      fetch('/api/auth/user', { method: 'PUT', body: JSON.stringify(formData) }).then(res => res.json()),
+      fetch('/api/auth/user', { method: HTTP_METHOD.PUT, body: JSON.stringify(formData) }).then(res => res.json()),
     onSuccess: () => {
       updateUser({
         ...formData,
       });
-      router.push(`/@${username}`);
+      openModal(modals.alert, {
+        title: '',
+        content: '회원 정보를 변경했습니다.',
+        onClose: () => {
+          closeModal(modals.alert);
+          router.push(`/@${username}`);
+        },
+      });
     },
     onError: () => {
       alert('실패');

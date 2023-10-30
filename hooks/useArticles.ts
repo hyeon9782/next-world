@@ -1,6 +1,7 @@
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { RefObject } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
+import { HTTP_METHOD } from '@/constants/api';
 
 const useArticles = ({
   targetRef,
@@ -71,6 +72,12 @@ const useArticles = ({
     onError,
   });
 
+  const { mutate: deleteAritlce } = useMutation({
+    mutationFn: async (slug: string) => {
+      return fetch(`/api/articles/${slug}`, { method: HTTP_METHOD.DELETE }).then(res => res.json());
+    },
+  });
+
   const nextPage = () => {
     if (!hasNextPage || isFetchingNextPage) {
       return;
@@ -80,7 +87,7 @@ const useArticles = ({
 
   useIntersectionObserver(nextPage, targetRef);
 
-  return { articlesData, favorite, unFavorite };
+  return { articlesData, favorite, unFavorite, deleteAritlce };
 };
 
 export default useArticles;
