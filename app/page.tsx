@@ -1,4 +1,5 @@
 import SideBar from '@/components/layouts/SideBar';
+import SkeletonElement from '@/composables/SkeletonElement';
 
 import { articleContainer } from '@/styles/article.css';
 import { container, flex, textCenter } from '@/styles/common.css';
@@ -19,17 +20,16 @@ export default function Page() {
           <p className={bannerDescription}>A place to share your knowledge.</p>
         </div>
       </Banner>
+      <SkeletonElement width="100px" height="50px" radius="5px" color="lightgray" />
       <main className={container}>
         <div className={flex}>
           <div className={articleContainer}>
             <ArticleTab />
-            <Suspense fallback={<div>Loading2...</div>}>
+            <Suspense fallback={<SkeletonElement width="100px" height="50px" radius="5px" color="lightgray" />}>
               <ArticleList />
             </Suspense>
           </div>
-          <Suspense fallback={<div>Loading1...</div>}>
-            <SideBar />
-          </Suspense>
+          <SideBar />
         </div>
       </main>
     </section>
