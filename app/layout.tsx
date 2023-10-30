@@ -4,6 +4,7 @@ import Header from '@/components/layouts/Header';
 import Footer from '@/components/layouts/Footer';
 import '@/styles/globalStyles.css';
 import Providers from '@/libs/Providers';
+import Modals from '@/composables/Modals';
 
 export const metadata: Metadata = {
   title: 'next world',
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="ko">
       <body>
         <Providers>
+          <Modals />
           <Header />
           <main>{children}</main>
           <Footer />
