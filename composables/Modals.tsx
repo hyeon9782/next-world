@@ -1,11 +1,11 @@
 'use client';
 import useModals from '@/hooks/useModals';
-import ConfirmDialog from './ConfirmDialog';
-import AlertDialog from './AlertDialog';
+import ConfirmModal from './ConfirmModal';
+import AlertModal from './AlertModal';
 
 export const modals = {
-  confirm: ConfirmDialog,
-  alert: AlertDialog,
+  confirm: ConfirmModal,
+  alert: AlertModal,
 };
 
 const Modals = () => {

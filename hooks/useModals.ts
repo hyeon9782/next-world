@@ -1,6 +1,7 @@
 import useModalsStore from '@/stores/useModalStore';
 import { useCallback } from 'react';
 
+// 이 부분을 useModalsStore에서 한 번에 처리하는 게 더 효율적이겠지?
 const useModals = () => {
   const { modals, setModals } = useModalsStore();
 

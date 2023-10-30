@@ -11,7 +11,7 @@ export const dialogBackground = style([
   },
 ]);
 
-export const confirmDialog = style({
+export const confirmModal = style({
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -38,7 +38,7 @@ export const confirmFooter = style({
   justifyContent: 'space-around',
 });
 
-export const alertDialog = style({
+export const alertModal = style({
   position: 'absolute',
   top: '20%',
   left: '50%',
