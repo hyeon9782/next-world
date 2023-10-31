@@ -62,5 +62,5 @@ export const alertSection = style({
 export const alertFooter = style({
   height: '15%',
   display: 'flex',
-  justifyContent: 'end',
+  justifyContent: 'flex-end',
 });

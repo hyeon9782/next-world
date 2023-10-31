@@ -10,3 +10,7 @@ export const getDataFromToken = (request: NextRequest) => {
     throw new Error(error.message);
   }
 };
+
+export const getToken = (request: NextRequest) => {
+  return request.cookies.get('token')?.value || '';
+};

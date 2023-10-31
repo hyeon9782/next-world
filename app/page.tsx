@@ -8,8 +8,8 @@ import dynamic from 'next/dynamic';
 import { Suspense, lazy } from 'react';
 
 const ArticleTab = dynamic(() => import('@/components/article/ArticleTab'), { ssr: false });
-// const ArticleList = dynamic(() => import('@/components/article/ArticleList'), { ssr: false });
-const ArticleList = lazy(() => import('@/components/article/ArticleList'));
+const ArticleList = dynamic(() => import('@/components/article/ArticleList'), { ssr: false });
+// const ArticleList = lazy(() => import('@/components/article/ArticleList'));
 // const SkeletonElement = dynamic(() => import('@/composables/SkeletonElement'), { ssr: false });
 const Banner = dynamic(() => import('@/components/layouts/Banner'), { ssr: false });
 

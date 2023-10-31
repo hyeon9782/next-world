@@ -1,4 +1,5 @@
 import { API_BASE_URL } from '@/constants/env';
+import { getToken } from './cookies';
 export const http = {
   request: async (url: string, method: string, body?: Request, options?: any) => {
     const defaultOptions = {
@@ -9,8 +10,6 @@ export const http = {
       body: body ? JSON.stringify(body) : undefined,
       ...options,
     };
-    console.log(defaultOptions);
-    console.log(API_BASE_URL);
 
     try {
       const response = await fetch(`${API_BASE_URL}${url}`, defaultOptions);
@@ -25,15 +24,9 @@ export const http = {
         throw new Error(errorData.message || 'Request failed');
       }
 
-      // console.log(response);
-      console.log(JSON.stringify(response));
-
-      console.log('성공');
-
       return response.json();
     } catch (error) {
       console.error(error);
-      // throw new Error('Request failed');
     }
   },
 

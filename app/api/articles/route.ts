@@ -1,4 +1,5 @@
 import { getArticlesAPI, getArticlesWithFavoritedAPI } from '@/services/articles';
+import { getToken } from '@/utils/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -7,7 +8,7 @@ export async function GET(request: NextRequest) {
   const page = searchParams.get('page');
   const username = searchParams.get('username');
 
-  const token = request.cookies.get('token')?.value || '';
+  const token = getToken(request);
 
   if (username) {
     const { articles, articlesCount } = await getArticlesWithFavoritedAPI(username, token, Number(page));

@@ -9,6 +9,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import useCurrentTab from '@/stores/useCurrentTab';
 import useArticles from '@/hooks/useArticles';
 import { Article } from '@/types/api/articles';
+import ToggleButton from '@/composables/ToggleButton';
 
 type Props = {
   article: Article;
@@ -44,6 +45,7 @@ const ArticlePreview = ({
     <div className={articlePreview}>
       <div className={articleMeta}>
         <UserBox author={author} createdAt={createdAt} />
+        {/* <ToggleButton onIcon={<FillHeartIcon />} offIcon={} onToggle={handleButtonClick} toggled={favorited} /> */}
         <button onClick={() => handleButtonClick(slug)} className={favorited ? `${fillGreenButton}` : `${greenButton}`}>
           <div className={flex}>
             <FillHeartIcon /> &nbsp;
