@@ -2,9 +2,9 @@ import { HTTP_METHOD, COMMON_HEADERS } from '@/constants/api';
 import { API_BASE_URL } from '@/constants/env';
 
 class HttpClient {
-  private baseURL: string;
+  private baseURL: string | undefined;
 
-  constructor(initialBaseURL: string) {
+  constructor(initialBaseURL: string | undefined) {
     this.baseURL = initialBaseURL;
   }
 
