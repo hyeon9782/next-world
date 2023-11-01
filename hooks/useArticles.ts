@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useSuspenseInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { RefObject } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
 import { HTTP_METHOD } from '@/constants/api';
@@ -16,8 +16,8 @@ const useArticles = ({
   onSuccess?: (res?: any) => void;
   onError?: (err?: any) => void;
 }) => {
-  const queryClient = useQueryClient();
-
+  // const queryClient = useQueryClient();
+  const currentOrigin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
   const {
     data: articlesData,
     fetchNextPage,
@@ -44,7 +44,7 @@ const useArticles = ({
           query = `/tag?tag=${tab}&page=${pageParam}`;
       }
 
-      return await fetch(`http://localhost:3000/api/articles${query}`).then(res => res.json());
+      return await fetch(`${currentOrigin}/api/articles${query}`).then(res => res.json());
     },
     getNextPageParam: (lastPage, pages) => {
       const totalPage = Math.ceil(lastPage.articlesCount / 10);
@@ -87,9 +87,10 @@ const useArticles = ({
 
   const { mutate: unFavorite } = useMutation({
     mutationFn: async (slug: string) => {
-      return await fetch('/api/articles/favorite', { method: HTTP_METHOD.DELETE, body: JSON.stringify({ slug }) }).then(
-        res => res.json()
-      );
+      return await fetch(`${currentOrigin}/api/articles/favorite`, {
+        method: HTTP_METHOD.DELETE,
+        body: JSON.stringify({ slug }),
+      }).then(res => res.json());
     },
     onSuccess,
     onError,
@@ -97,7 +98,7 @@ const useArticles = ({
 
   const { mutate: deleteAritlce } = useMutation({
     mutationFn: async (slug: string) => {
-      return fetch(`/api/articles/${slug}`, { method: HTTP_METHOD.DELETE }).then(res => res.json());
+      return fetch(`${currentOrigin}/api/articles/${slug}`, { method: HTTP_METHOD.DELETE }).then(res => res.json());
     },
   });
 

@@ -10,6 +10,7 @@ import useCurrentTab from '@/stores/useCurrentTab';
 import useArticles from '@/hooks/useArticles';
 import { Article } from '@/types/api/articles';
 import ToggleButton from '@/composables/ToggleButton';
+import { useEffect, useState } from 'react';
 
 type Props = {
   article: Article;
@@ -17,6 +18,7 @@ type Props = {
 const ArticlePreview = ({
   article: { title, description, favorited, favoritesCount, tagList, author, createdAt, slug = 'asd' },
 }: Props) => {
+  const [isFavorite, setIsFavorite] = useState(false);
   const router = useRouter();
   const { tab } = useCurrentTab();
 
@@ -41,12 +43,24 @@ const ArticlePreview = ({
     }
   };
 
+  useEffect(() => {
+    if (favorited) {
+      setIsFavorite(true);
+      return;
+    }
+
+    setIsFavorite(false);
+  }, [favorited]);
+
   return (
     <div className={articlePreview}>
       <div className={articleMeta}>
         <UserBox author={author} createdAt={createdAt} />
         {/* <ToggleButton onIcon={<FillHeartIcon />} offIcon={} onToggle={handleButtonClick} toggled={favorited} /> */}
-        <button onClick={() => handleButtonClick(slug)} className={favorited ? `${fillGreenButton}` : `${greenButton}`}>
+        <button
+          onClick={() => handleButtonClick(slug)}
+          className={isFavorite ? `${fillGreenButton}` : `${greenButton}`}
+        >
           <div className={flex}>
             <FillHeartIcon /> &nbsp;
             {favoritesCount}

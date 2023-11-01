@@ -1,20 +1,14 @@
-// import ArticleList from '@/components/article/ArticleList';
-import ArticleListSkeleton from '@/components/article/ArticleListSkeleton';
 import SideBar from '@/components/layouts/SideBar';
-import SkeletonElement from '@/composables/SkeletonElement';
-import getQueryClient from '@/libs/getQueryClient';
+import ArticleListSkeleton from '@/components/article/ArticleListSkeleton';
 
 import { articleContainer } from '@/styles/article.css';
-import { container, flex, textCenter } from '@/styles/common.css';
+import { container, textCenter, flex } from '@/styles/common.css';
 import { bannerDescription, bannerTitle } from '@/styles/home.css';
-import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import { Suspense, lazy } from 'react';
 
 const ArticleTab = dynamic(() => import('@/components/article/ArticleTab'), { ssr: false });
-// const ArticleList = dynamic(() => import('@/components/article/ArticleList'));
 const ArticleList = lazy(() => import('@/components/article/ArticleList'));
-// const SkeletonElement = dynamic(() => import('@/composables/SkeletonElement'), { ssr: false });
 const Banner = dynamic(() => import('@/components/layouts/Banner'), { ssr: false });
 
 export default async function HomePage() {
@@ -39,7 +33,6 @@ export default async function HomePage() {
         <div className={flex}>
           <div className={articleContainer}>
             <ArticleTab />
-
             <Suspense fallback={<ArticleListSkeleton />}>
               <ArticleList />
             </Suspense>
