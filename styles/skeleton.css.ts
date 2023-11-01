@@ -31,3 +31,36 @@ export const skeletonPlaceholder = style({
   animationDuration: '1.5s',
   animationIterationCount: 'infinite',
 });
+
+export const articlePreviewSkeleton = style({
+  padding: '10px',
+});
+
+export const articlePreviewHead = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  marginBottom: '10px',
+});
+
+export const articlePreviewSection = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '10px',
+});
+
+export const articlePreviewFooter = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+});
+
+export const articlePreviewTags = style({
+  display: 'flex',
+  gap: 10,
+});
+
+export const articleList = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 20,
+  marginTop: 20,
+});

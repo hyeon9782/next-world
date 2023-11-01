@@ -1,3 +1,5 @@
+'use client';
+
 import {
   skeletonBackground,
   skeletonHeight,
@@ -13,16 +15,16 @@ type Props = {
   height: string;
   radius: string;
   children?: ReactNode;
-  color: string;
+  background: string;
 };
-const SkeletonElement = ({ width, height, radius, children, color }: Props) => {
+const SkeletonElement = ({ width, height, radius, children, background }: Props) => {
   return (
     <div
       className={skeletonPlaceholder}
       style={assignInlineVars({
         [skeletonWidth]: width,
         [skeletonHeight]: height,
-        [skeletonBackground]: color,
+        [skeletonBackground]: background,
         [skeletonRadius]: radius,
       })}
     >
