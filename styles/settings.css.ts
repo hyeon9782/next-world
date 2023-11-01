@@ -5,10 +5,12 @@ export const settingBlock = style({
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'column',
+  margin: '0 auto',
+  width: 684,
 });
 
 export const settingForm = style({
-  width: '60%',
+  width: '684px',
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
@@ -38,5 +40,6 @@ export const logoutButton = style([
     lineHeight: '1.25',
     padding: '0.5rem 1rem',
     fontSize: '1rem',
+    marginTop: 20,
   },
 ]);

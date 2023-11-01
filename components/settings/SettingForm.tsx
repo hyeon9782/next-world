@@ -4,7 +4,7 @@ import { HTTP_METHOD } from '@/constants/api';
 import useModalsStore from '@/stores/useModalStore';
 import useUserStore from '@/stores/useUserStore';
 import { articleTextarea } from '@/styles/article.css';
-import { input } from '@/styles/common.css';
+import { hr, input } from '@/styles/common.css';
 import { settingForm, updateButton } from '@/styles/settings.css';
 import { User } from '@/types/api/users';
 import { UserAction } from '@/types/store/userStore';
@@ -12,6 +12,7 @@ import { UserAction } from '@/types/store/userStore';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import LogoutButton from './LogoutButton';
 
 const SettingForm = () => {
   const router = useRouter();
@@ -65,56 +66,59 @@ const SettingForm = () => {
     }));
   };
   return (
-    <form onSubmit={handleSubmit} className={settingForm}>
-      <input
-        type="text"
-        name="iamge"
-        className={input}
-        placeholder="URL of profile picture"
-        value={formData.image}
-        onChange={handleChange}
-        readOnly={isLoading}
-      />
-      <input
-        type="text"
-        name="username"
-        className={input}
-        placeholder="Username"
-        value={formData.username}
-        onChange={handleChange}
-        readOnly={isLoading}
-      />
-      <textarea
-        rows={8}
-        name="bio"
-        className={articleTextarea}
-        placeholder="Short bio about you"
-        value={formData.bio}
-        onChange={handleChange}
-        readOnly={isLoading}
-      ></textarea>
-      <input
-        type="email"
-        name="email"
-        className={input}
-        placeholder="Email"
-        value={formData.email}
-        onChange={handleChange}
-        readOnly={isLoading}
-      />
-      <input
-        type="password"
-        name="password"
-        className={input}
-        placeholder="New Password"
-        value={formData.password}
-        onChange={handleChange}
-        readOnly={isLoading}
-      />
-      <div>
-        <input type="submit" className={updateButton} value="Update Settings" />
-      </div>
-    </form>
+    <>
+      <form onSubmit={handleSubmit} className={settingForm}>
+        <input
+          type="text"
+          name="iamge"
+          className={input}
+          placeholder="URL of profile picture"
+          value={formData.image}
+          onChange={handleChange}
+          readOnly={isLoading}
+        />
+        <input
+          type="text"
+          name="username"
+          className={input}
+          placeholder="Username"
+          value={formData.username}
+          onChange={handleChange}
+          readOnly={isLoading}
+        />
+        <textarea
+          rows={8}
+          name="bio"
+          className={articleTextarea}
+          placeholder="Short bio about you"
+          value={formData.bio}
+          onChange={handleChange}
+          readOnly={isLoading}
+        ></textarea>
+        <input
+          type="email"
+          name="email"
+          className={input}
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          readOnly={isLoading}
+        />
+        <input
+          type="password"
+          name="password"
+          className={input}
+          placeholder="New Password"
+          value={formData.password}
+          onChange={handleChange}
+          readOnly={isLoading}
+        />
+        <div>
+          <input type="submit" className={updateButton} value="Update Settings" />
+        </div>
+        <div className={hr} />
+      </form>
+    </>
   );
 };
 
