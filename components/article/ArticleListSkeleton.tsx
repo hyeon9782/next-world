@@ -1,5 +1,4 @@
 import SkeletonElement from '@/composables/SkeletonElement';
-import { flex } from '@/styles/common.css';
 import {
   articleList,
   articlePreviewFooter,

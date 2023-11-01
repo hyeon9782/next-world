@@ -1,6 +1,5 @@
 import LogoutButton from '@/components/settings/LogoutButton';
 import SettingForm from '@/components/settings/SettingForm';
-
 import { container, hr } from '@/styles/common.css';
 import { settingBlock, settingTitle } from '@/styles/settings.css';
 

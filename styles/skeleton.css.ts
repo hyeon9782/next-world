@@ -64,3 +64,26 @@ export const articleList = style({
   gap: 20,
   marginTop: 20,
 });
+
+export const settingPageSkeleton = style({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+});
+
+export const settingPageForm = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+  padding: 10,
+  boxSizing: 'border-box',
+});
+
+export const settingPageTitle = style({
+  margin: '0 auto',
+});
+
+export const settingPageButtonBox = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+});

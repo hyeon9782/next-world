@@ -1,6 +1,7 @@
 'use client';
 
 import ArticleList from '@/components/article/ArticleList';
+import ArticleListSkeleton from '@/components/article/ArticleListSkeleton';
 import ProfileBox from '@/components/profile/ProfileBox';
 import useProfile from '@/hooks/useProfile';
 import { container } from '@/styles/common.css';
@@ -23,7 +24,7 @@ const ProfilePage = ({ params: { usernameParam } }: Props) => {
       <ProfileBox username={username} following={following} image={image} />
       <div className={container}>
         <ArticleTab />
-        <Suspense fallback={<div>리스트 로딩 중...</div>}>
+        <Suspense fallback={<ArticleListSkeleton />}>
           <ArticleList username={username} />
         </Suspense>
       </div>
