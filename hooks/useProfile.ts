@@ -12,7 +12,7 @@ const useProfile = ({
 }) => {
   const origin =
     process.env.NODE_ENV === 'production'
-      ? 'https://next-world-htzw7z7di-hyeon9782.vercel.app/'
+      ? 'https://next-world-htzw7z7di-hyeon9782.vercel.app'
       : 'http://localhost:3000';
   const { data: profile } = useQuery({
     queryKey: ['profile', username],

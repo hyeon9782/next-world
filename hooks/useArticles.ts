@@ -19,7 +19,7 @@ const useArticles = ({
   // const queryClient = useQueryClient();
   const origin =
     process.env.NODE_ENV === 'production'
-      ? 'https://next-world-htzw7z7di-hyeon9782.vercel.app/'
+      ? 'https://next-world-htzw7z7di-hyeon9782.vercel.app'
       : 'http://localhost:3000';
   // const currentOrigin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
   const {
