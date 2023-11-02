@@ -7,23 +7,23 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 type Props = {
   author: any;
-  slug?: string;
+  slug: string;
 };
 const FollowButton = ({ author: { username, following }, slug }: Props) => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const onSuccess = () => {
-    queryClient.invalidateQueries({
-      queryKey: ['article', slug],
-    });
-  };
+  // const onSuccess = () => {
+  //   queryClient.invalidateQueries({
+  //     queryKey: ['article', slug],
+  //   });
+  // };
 
-  const onError = () => {
-    router.push('/login');
-  };
+  // const onError = () => {
+  //   router.push('/login');
+  // };
 
-  const { follow, unFollow } = useProfile({ onSuccess, onError });
+  const { follow, unFollow } = useProfile({ slug });
 
   const handleButtonClick = (username: string) => {
     if (following) {
