@@ -17,7 +17,8 @@ const useArticles = ({
   onError?: (err?: any) => void;
 }) => {
   // const queryClient = useQueryClient();
-  const currentOrigin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+  const origin = process.env.NODE_ENV === 'production' ? 'https://next-world-ten.vercel.app/' : 'http://localhost:3000';
+  // const currentOrigin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
   const {
     data: articlesData,
     fetchNextPage,
@@ -43,7 +44,7 @@ const useArticles = ({
         default:
           query = `/tag?tag=${tab}&page=${pageParam}`;
       }
-      return await fetch(`${currentOrigin}/api/articles${query}`).then(res => res.json());
+      return await fetch(`${origin}/api/articles${query}`).then(res => res.json());
     },
     getNextPageParam: (lastPage, pages) => {
       const totalPage = Math.ceil(lastPage.articlesCount / 10);
@@ -86,7 +87,7 @@ const useArticles = ({
 
   const { mutate: unFavorite } = useMutation({
     mutationFn: async (slug: string) => {
-      return await fetch(`${currentOrigin}/api/articles/favorite`, {
+      return await fetch(`${origin}/api/articles/favorite`, {
         method: HTTP_METHOD.DELETE,
         body: JSON.stringify({ slug }),
       }).then(res => res.json());
@@ -97,7 +98,7 @@ const useArticles = ({
 
   const { mutate: deleteAritlce } = useMutation({
     mutationFn: async (slug: string) => {
-      return fetch(`${currentOrigin}/api/articles/${slug}`, { method: HTTP_METHOD.DELETE }).then(res => res.json());
+      return fetch(`${origin}/api/articles/${slug}`, { method: HTTP_METHOD.DELETE }).then(res => res.json());
     },
   });
 

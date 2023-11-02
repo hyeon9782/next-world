@@ -10,19 +10,17 @@ const useProfile = ({
   onSuccess?: (res: any) => void;
   onError?: (err: any) => void;
 }) => {
-  const currentOrigin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
-  console.log(currentOrigin);
+  const origin = process.env.NODE_ENV === 'production' ? 'https://next-world-ten.vercel.app/' : 'http://localhost:3000';
   const { data: profile } = useQuery({
     queryKey: ['profile', username],
-    queryFn: () =>
-      fetch(`${currentOrigin}/api/profiles/${username}`, { method: HTTP_METHOD.GET }).then(res => res.json()),
+    queryFn: () => fetch(`${origin}/api/profiles/${username}`, { method: HTTP_METHOD.GET }).then(res => res.json()),
     enabled: !!username,
     select: res => res.response.profile,
   });
 
   const { mutate: follow } = useMutation({
     mutationFn: async (username: string) => {
-      return fetch(`${currentOrigin}/api/profiles/${username}`, { method: HTTP_METHOD.POST }).then(res => res.json());
+      return fetch(`${origin}/api/profiles/${username}`, { method: HTTP_METHOD.POST }).then(res => res.json());
     },
     onSuccess,
     onError,
@@ -30,7 +28,7 @@ const useProfile = ({
 
   const { mutate: unFollow } = useMutation({
     mutationFn: async (username: string) => {
-      return fetch(`${currentOrigin}/api/profiles/${username}`, { method: HTTP_METHOD.DELETE }).then(res => res.json());
+      return fetch(`${origin}/api/profiles/${username}`, { method: HTTP_METHOD.DELETE }).then(res => res.json());
     },
     onSuccess,
     onError,
