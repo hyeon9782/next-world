@@ -87,3 +87,23 @@ export const settingPageButtonBox = style({
   display: 'flex',
   justifyContent: 'space-between',
 });
+
+export const profileSkeleton = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 10,
+  padding: 10,
+});
+
+export const bannerSkeleton = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: 10,
+  padding: '32px 0 16px 0',
+});
+
+export const editProfileSkeleton = style({
+  display: 'flex',
+  justifyContent: 'flex-end',
+});

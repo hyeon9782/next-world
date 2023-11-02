@@ -1,5 +1,7 @@
+import ProfileSkeleton from '@/components/profile/ProfileSkeleton';
+
 const ProfileLoading = () => {
-  return <div>ProfileLoading</div>;
+  return <ProfileSkeleton />;
 };
 
 export default ProfileLoading;
