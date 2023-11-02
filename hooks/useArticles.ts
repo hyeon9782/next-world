@@ -2,6 +2,7 @@ import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-q
 import { RefObject } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
 import { HTTP_METHOD } from '@/constants/api';
+import { ArticlesResponse } from '@/types/route/articles';
 
 const useArticles = ({
   targetRef,
@@ -63,32 +64,37 @@ const useArticles = ({
     },
     onMutate: async (slug: string) => {
       await queryClient.cancelQueries({ queryKey: ['articles', tab] });
-      const previousArticles = queryClient.getQueryData(['articles', tab]);
+      const previousArticles: ArticlesResponse | undefined = queryClient.getQueryData(['articles', tab]);
 
-      const newArticles = previousArticles.pages.map(page => {
-        const newArticles = page.articles.map(article => {
-          if (article.slug === slug) {
-            return {
-              ...article,
-              favorited: true,
-              favoritesCount: article.favoritesCount + 1,
-            };
-          }
-          return article;
+      if (previousArticles) {
+        const newArticles = previousArticles.pages.map(page => {
+          const newArticles = page.articles.map(article => {
+            if (article.slug === slug) {
+              return {
+                ...article,
+                favorited: true,
+                favoritesCount: article.favoritesCount + 1,
+              };
+            }
+            return article;
+          });
+
+          return {
+            ...page,
+            articles: newArticles,
+          };
         });
 
-        return {
-          ...page,
-          articles: newArticles,
-        };
-      });
+        queryClient.setQueriesData({ queryKey: ['articles', tab] }, (old: any) => ({
+          ...old,
+          pages: [...newArticles],
+        }));
 
-      queryClient.setQueriesData({ queryKey: ['articles', tab] }, old => ({ ...old, pages: [...newArticles] }));
-
-      return { previousArticles };
+        return { previousArticles };
+      }
     },
     onError: (err, newTodo, context) => {
-      queryClient.setQueryData(['articles', tab], context.previousArticles);
+      queryClient.setQueryData(['articles', tab], context?.previousArticles);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['articles', tab] });
@@ -104,32 +110,37 @@ const useArticles = ({
     },
     onMutate: async (slug: string) => {
       await queryClient.cancelQueries({ queryKey: ['articles', tab] });
-      const previousArticles = queryClient.getQueryData(['articles', tab]);
+      const previousArticles: ArticlesResponse | undefined = queryClient.getQueryData(['articles', tab]);
 
-      const newArticles = previousArticles.pages.map(page => {
-        const newArticles = page.articles.map(article => {
-          if (article.slug === slug) {
-            return {
-              ...article,
-              favorited: false,
-              favoritesCount: article.favoritesCount - 1,
-            };
-          }
-          return article;
+      if (previousArticles) {
+        const newArticles = previousArticles.pages.map(page => {
+          const newArticles = page.articles.map(article => {
+            if (article.slug === slug) {
+              return {
+                ...article,
+                favorited: false,
+                favoritesCount: article.favoritesCount - 1,
+              };
+            }
+            return article;
+          });
+
+          return {
+            ...page,
+            articles: newArticles,
+          };
         });
 
-        return {
-          ...page,
-          articles: newArticles,
-        };
-      });
+        queryClient.setQueriesData({ queryKey: ['articles', tab] }, (old: any) => ({
+          ...old,
+          pages: [...newArticles],
+        }));
 
-      queryClient.setQueriesData({ queryKey: ['articles', tab] }, old => ({ ...old, pages: [...newArticles] }));
-
-      return { previousArticles };
+        return { previousArticles };
+      }
     },
     onError: (err, newTodo, context) => {
-      queryClient.setQueryData(['articles', tab], context.previousArticles);
+      queryClient.setQueryData(['articles', tab], context?.previousArticles);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['articles', tab] });

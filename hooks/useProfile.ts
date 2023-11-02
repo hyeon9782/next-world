@@ -1,4 +1,5 @@
 import { HTTP_METHOD } from '@/constants/api';
+import { ProfileResponse } from '@/types/route/profile';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const useProfile = ({ username }: { username?: string }) => {
@@ -17,26 +18,29 @@ const useProfile = ({ username }: { username?: string }) => {
     },
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['profile', username] });
-      const previousProfile = queryClient.getQueryData(['profile', username]);
-      const newProfile = {
-        ...previousProfile,
-        response: {
-          ...previousProfile.response,
-          profile: {
-            ...previousProfile.response.profile,
-            following: true,
+      const previousProfile: ProfileResponse | undefined = queryClient.getQueryData(['profile', username]);
+
+      if (previousProfile) {
+        const newProfile = {
+          ...previousProfile,
+          response: {
+            ...previousProfile.response,
+            profile: {
+              ...previousProfile.response.profile,
+              following: true,
+            },
           },
-        },
-      };
+        };
 
-      console.log(newProfile);
+        console.log(newProfile);
 
-      queryClient.setQueriesData({ queryKey: ['profile', username] }, () => newProfile);
+        queryClient.setQueriesData({ queryKey: ['profile', username] }, () => newProfile);
 
-      return { newProfile };
+        return { newProfile };
+      }
     },
     onError: (err, newTodo, context) => {
-      queryClient.setQueryData(['profile', username], context.newProfile);
+      queryClient.setQueryData(['profile', username], context?.newProfile);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['profile', username] });
@@ -49,26 +53,29 @@ const useProfile = ({ username }: { username?: string }) => {
     },
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['profile', username] });
-      const previousProfile = queryClient.getQueryData(['profile', username]);
-      const newProfile = {
-        ...previousProfile,
-        response: {
-          ...previousProfile.response,
-          profile: {
-            ...previousProfile.response.profile,
-            following: false,
+      const previousProfile: ProfileResponse | undefined = queryClient.getQueryData(['profile', username]);
+
+      if (previousProfile) {
+        const newProfile = {
+          ...previousProfile,
+          response: {
+            ...previousProfile.response,
+            profile: {
+              ...previousProfile.response.profile,
+              following: false,
+            },
           },
-        },
-      };
+        };
 
-      console.log(newProfile);
+        console.log(newProfile);
 
-      queryClient.setQueriesData({ queryKey: ['profile', username] }, () => newProfile);
+        queryClient.setQueriesData({ queryKey: ['profile', username] }, () => newProfile);
 
-      return { newProfile };
+        return { newProfile };
+      }
     },
     onError: (err, newTodo, context) => {
-      queryClient.setQueryData(['profile', username], context.newProfile);
+      queryClient.setQueryData(['profile', username], context?.newProfile);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['profile', username] });
