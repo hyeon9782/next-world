@@ -21,7 +21,9 @@ const CommentCard = ({ comment, slug }: Props) => {
     mutationFn: async (slug: string) =>
       fetch(`/api/comments/${slug}?id=${comment.id}`, { method: 'DELETE' }).then(res => res.json()),
     onSuccess: () => {
-      queryClient.invalidateQueries(['comments', slug]);
+      queryClient.invalidateQueries({
+        queryKey: ['comments', slug],
+      });
     },
   });
   const handleTrashClick = (slug: string) => {

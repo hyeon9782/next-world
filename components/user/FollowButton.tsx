@@ -14,7 +14,9 @@ const FollowButton = ({ author: { username, following }, slug }: Props) => {
   const queryClient = useQueryClient();
 
   const onSuccess = () => {
-    queryClient.invalidateQueries(['article', slug]);
+    queryClient.invalidateQueries({
+      queryKey: ['article', slug],
+    });
   };
 
   const onError = () => {

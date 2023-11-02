@@ -30,7 +30,7 @@ const SettingForm = () => {
     password: '',
   });
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: (formData: any) =>
       fetch('/api/auth/user', { method: HTTP_METHOD.PUT, body: JSON.stringify(formData) }).then(res => res.json()),
     onSuccess: () => {
@@ -75,7 +75,6 @@ const SettingForm = () => {
           placeholder="URL of profile picture"
           value={formData.image}
           onChange={handleChange}
-          readOnly={isLoading}
         />
         <input
           type="text"
@@ -84,7 +83,6 @@ const SettingForm = () => {
           placeholder="Username"
           value={formData.username}
           onChange={handleChange}
-          readOnly={isLoading}
         />
         <textarea
           rows={8}
@@ -93,7 +91,6 @@ const SettingForm = () => {
           placeholder="Short bio about you"
           value={formData.bio}
           onChange={handleChange}
-          readOnly={isLoading}
         ></textarea>
         <input
           type="email"
@@ -102,7 +99,6 @@ const SettingForm = () => {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          readOnly={isLoading}
         />
         <input
           type="password"
@@ -111,7 +107,6 @@ const SettingForm = () => {
           placeholder="New Password"
           value={formData.password}
           onChange={handleChange}
-          readOnly={isLoading}
         />
         <div>
           <input type="submit" className={updateButton} value="Update Settings" />

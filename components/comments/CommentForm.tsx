@@ -16,7 +16,7 @@ const CommentForm = ({ slug }: { slug: string }) => {
       ),
     onSuccess: () => {
       alert('성공!');
-      queryClient.invalidateQueries(['comments', slug]);
+      queryClient.invalidateQueries({ queryKey: ['comments', slug] });
     },
     onError: () => {
       alert('실패');

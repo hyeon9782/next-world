@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { RefObject } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
 import { HTTP_METHOD } from '@/constants/api';
@@ -43,7 +43,6 @@ const useArticles = ({
         default:
           query = `/tag?tag=${tab}&page=${pageParam}`;
       }
-
       return await fetch(`${currentOrigin}/api/articles${query}`).then(res => res.json());
     },
     getNextPageParam: (lastPage, pages) => {
@@ -52,10 +51,10 @@ const useArticles = ({
       if (lastPage.articlesCount < 11 || totalPage < pages.length) {
         return undefined;
       }
-
       return currentPage++;
     },
-    enabled: !!targetRef && !!tab,
+    enabled: !!targetRef,
+    initialPageParam: 0,
   });
 
   const { mutate: favorite } = useMutation({

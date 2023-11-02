@@ -21,7 +21,7 @@
     "plugin:react/recommended",
     "plugin:@tanstack/eslint-plugin-query/recommended"
   ],
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "@tanstack/query"],
   "rules": {
     // prettier 규칙 적용
     "prettier/prettier": ["error", { "endOfLine": "auto" }],

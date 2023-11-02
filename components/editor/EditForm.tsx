@@ -41,7 +41,9 @@ const EditForm = ({ slug }: { slug?: string }) => {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['articles', 'global']);
+      queryClient.invalidateQueries({
+        queryKey: ['articles', 'global'],
+      });
       router.push('/');
     },
     onError: (error: any) => {
