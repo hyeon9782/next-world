@@ -10,7 +10,10 @@ const useProfile = ({
   onSuccess?: (res: any) => void;
   onError?: (err: any) => void;
 }) => {
-  const origin = process.env.NODE_ENV === 'production' ? 'https://next-world-ten.vercel.app/' : 'http://localhost:3000';
+  const origin =
+    process.env.NODE_ENV === 'production'
+      ? 'https://next-world-htzw7z7di-hyeon9782.vercel.app/'
+      : 'http://localhost:3000';
   const { data: profile } = useQuery({
     queryKey: ['profile', username],
     queryFn: () => fetch(`${origin}/api/profiles/${username}`, { method: HTTP_METHOD.GET }).then(res => res.json()),
