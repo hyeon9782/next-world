@@ -1,4 +1,5 @@
 # Next World
+
 ### 실무에서 많이 사용하는 기술 스택을 학습하기 위해 기존에 경험하지 못한 기술을 사용하여 블로그를 구현했습니다.
 
 ## 프로젝트 목표
@@ -53,18 +54,16 @@
 
 ## What I Did
 
-- Article CRUD 기능 구현 (전체, 태그, 좋아요, 팔로우)
-- Comment CRD 기능 구현
-- User & Auth 기능 구현 (로그인, 회원가입, 정보 수정)
-- 좋아요 & 팔로우 기능 구현
+- Real World에서 지원하는 API를 사용해 블로그 구현
+- 컴포넌트 단위 Skeleton UI를 사용해 Streaming 구현
+- Optimistic Updates 활용한 좋아요 & 팔로우 버튼 구현
+- 효율적인 Modal 컴포넌트 구현
+- Route Handler를 Proxy처럼 사용해 보안 강화
 
 ## Will Update
 
-- UX 증대를 위해 Optimistic Updates를 활용한 좋아요 & 팔로우 버튼 리팩토링
 - Route Handler Response 일관성 있게 통일하기
 - Error Message에 따라 알맞은 에러 처리
-- alert을 사용하지 않고 Dialog 컴포넌트 구현
-- 페이지 단위 스켈레톤 UI 적용
 
 ## Trouble Shooting
 
@@ -77,4 +76,3 @@ World는 Server Engineer가 없는 개인 프로젝트였기 때문에 현재 �
 - CSRF 공격을 방지하기 위해 SameSite 속성을 사용했습니다.
 - 하지만 HttpOnly 속성으로 인해 cookies를 클라이언트에서 접근할 수 없는 문제가 생겼습니다.
 - 이러한 문제를 해결하고자 route.ts 파일을 proxy처럼 사용해 api를 호출할 때 token 값을 넣어주는 방식을 사용했습니다.
-

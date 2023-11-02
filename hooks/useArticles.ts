@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { RefObject } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
 import { HTTP_METHOD } from '@/constants/api';
@@ -7,18 +7,15 @@ const useArticles = ({
   targetRef,
   tab = 'global',
   username = '',
-  onSuccess,
-  onError,
 }: {
   targetRef?: RefObject<HTMLElement> | undefined;
   tab?: string;
   username?: string;
-  onSuccess?: (res?: any) => void;
-  onError?: (err?: any) => void;
 }) => {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
+
   const origin = process.env.NODE_ENV === 'production' ? 'https://next-world-ten.vercel.app' : 'http://localhost:3000';
-  // const currentOrigin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+
   const {
     data: articlesData,
     fetchNextPage,
@@ -64,25 +61,38 @@ const useArticles = ({
         res => res.json()
       );
     },
-    onSuccess,
-    onError,
-    // onMutate: async newArticles => {
-    //   console.log('커스텀 훅');
-    //   console.log(newArticles);
+    onMutate: async (slug: string) => {
+      await queryClient.cancelQueries({ queryKey: ['articles', tab] });
+      const previousArticles = queryClient.getQueryData(['articles', tab]);
 
-    //   await queryClient.cancelQueries({ queryKey: ['articles', tab] });
-    //   const previousArticles = queryClient.getQueryData(['articles', tab]);
+      const newArticles = previousArticles.pages.map(page => {
+        const newArticles = page.articles.map(article => {
+          if (article.slug === slug) {
+            return {
+              ...article,
+              favorited: true,
+              favoritesCount: article.favoritesCount + 1,
+            };
+          }
+          return article;
+        });
 
-    //   queryClient.setQueriesData(['articles', tab], old => [...old, newArticles]);
+        return {
+          ...page,
+          articles: newArticles,
+        };
+      });
 
-    //   return { previousArticles };
-    // },
-    // onError: (err, newTodo, context) => {
-    //   queryClient.setQueryData(['articles', tab], context.previousArticles);
-    // },
-    // onSettled: () => {
-    //   queryClient.invalidateQueries({ queryKey: ['articles', tab] });
-    // },
+      queryClient.setQueriesData({ queryKey: ['articles', tab] }, old => ({ ...old, pages: [...newArticles] }));
+
+      return { previousArticles };
+    },
+    onError: (err, newTodo, context) => {
+      queryClient.setQueryData(['articles', tab], context.previousArticles);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['articles', tab] });
+    },
   });
 
   const { mutate: unFavorite } = useMutation({
@@ -92,8 +102,38 @@ const useArticles = ({
         body: JSON.stringify({ slug }),
       }).then(res => res.json());
     },
-    onSuccess,
-    onError,
+    onMutate: async (slug: string) => {
+      await queryClient.cancelQueries({ queryKey: ['articles', tab] });
+      const previousArticles = queryClient.getQueryData(['articles', tab]);
+
+      const newArticles = previousArticles.pages.map(page => {
+        const newArticles = page.articles.map(article => {
+          if (article.slug === slug) {
+            return {
+              ...article,
+              favorited: false,
+              favoritesCount: article.favoritesCount - 1,
+            };
+          }
+          return article;
+        });
+
+        return {
+          ...page,
+          articles: newArticles,
+        };
+      });
+
+      queryClient.setQueriesData({ queryKey: ['articles', tab] }, old => ({ ...old, pages: [...newArticles] }));
+
+      return { previousArticles };
+    },
+    onError: (err, newTodo, context) => {
+      queryClient.setQueryData(['articles', tab], context.previousArticles);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['articles', tab] });
+    },
   });
 
   const { mutate: deleteAritlce } = useMutation({
