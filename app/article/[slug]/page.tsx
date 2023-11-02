@@ -7,6 +7,7 @@ import TagList from '@/components/tags/TagList';
 import FavoriteButton from '@/components/user/FavoriteButton';
 import FollowButton from '@/components/user/FollowButton';
 import UserBox from '@/components/user/UserBox';
+import useArticle from '@/hooks/useArticle';
 import useUserStore from '@/stores/useUserStore';
 import { articleContent, articleDetailTitle } from '@/styles/article.css';
 import { container, flex, justifyCenter, paddingTB } from '@/styles/common.css';
@@ -20,13 +21,9 @@ type Props = {
 const ArticlePage = ({ params: { slug } }: Props) => {
   const { username } = useUserStore() as User;
 
-  const { data: article } = useQuery({
-    queryKey: ['article', slug],
-    queryFn: async () => await fetch(`/api/articles/${slug}`).then(res => res.json()),
-    select: res => res.data.article,
-  });
+  const { article, favorite, unFavorite } = useArticle({ slug });
 
-  const { title, author, createdAt, body, tagList, favoritesCount } = article;
+  const { title, author, createdAt, body, tagList, favoritesCount, favorited } = article;
 
   return (
     <section>
@@ -44,7 +41,13 @@ const ArticlePage = ({ params: { slug } }: Props) => {
             ) : (
               <div className={flex}>
                 <FollowButton author={author} slug={slug} />
-                <FavoriteButton favoritesCount={favoritesCount} />
+                <FavoriteButton
+                  favorited={favorited}
+                  favoritesCount={favoritesCount}
+                  favorite={favorite}
+                  slug={slug}
+                  unFavorite={unFavorite}
+                />
               </div>
             )}
           </div>

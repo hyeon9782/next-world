@@ -2,9 +2,28 @@
 import Button from '@/composables/Button';
 import { FillHeartIcon } from '@/composables/icons';
 
-const FavoriteButton = ({ favoritesCount }: { favoritesCount: number }) => {
+const FavoriteButton = ({
+  favorited,
+  favoritesCount,
+  favorite,
+  unFavorite,
+  slug,
+}: {
+  favorited: boolean;
+  favoritesCount: number;
+  favorite: any;
+  unFavorite: any;
+  slug: string;
+}) => {
+  const handleFavoriteButtonClick = () => {
+    if (favorited) {
+      unFavorite(slug);
+    } else {
+      favorite(slug);
+    }
+  };
   return (
-    <Button onClick={() => console.log('클릭')} type="green">
+    <Button onClick={handleFavoriteButtonClick} type="green">
       <FillHeartIcon />
       Favorite Article ({favoritesCount})
     </Button>
