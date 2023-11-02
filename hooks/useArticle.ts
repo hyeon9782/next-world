@@ -4,11 +4,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const useArticle = ({ slug }: { slug: string }) => {
   const queryClient = useQueryClient();
-  const origin = process.env.NODE_ENV === 'production' ? 'https://next-world-ten.vercel.app' : 'http://localhost:3000';
 
   const { data: article } = useQuery({
     queryKey: ['article', slug],
-    queryFn: async () => await fetch(`${origin}/api/articles/${slug}`).then(res => res.json()),
+    queryFn: async () => await fetch(`/api/articles/${slug}`).then(res => res.json()),
     select: res => res.data.article,
   });
 
@@ -35,14 +34,13 @@ const useArticle = ({ slug }: { slug: string }) => {
           },
         };
 
-        console.log(newArticle);
-
         queryClient.setQueriesData({ queryKey: ['article', slug] }, () => newArticle);
 
         return { previousArticle };
       }
     },
-    onError: (err, newTodo, context) => {
+    onError: (err, _, context) => {
+      console.error(err.message);
       queryClient.setQueryData(['article', slug], context?.previousArticle);
     },
     onSettled: () => {
@@ -52,7 +50,7 @@ const useArticle = ({ slug }: { slug: string }) => {
 
   const { mutate: unFavorite } = useMutation({
     mutationFn: async (slug: string) => {
-      return await fetch('/api/articles/favorite', { method: HTTP_METHOD.POST, body: JSON.stringify({ slug }) }).then(
+      return await fetch('/api/articles/favorite', { method: HTTP_METHOD.DELETE, body: JSON.stringify({ slug }) }).then(
         res => res.json()
       );
     },
@@ -73,14 +71,13 @@ const useArticle = ({ slug }: { slug: string }) => {
           },
         };
 
-        console.log(newArticle);
-
         queryClient.setQueriesData({ queryKey: ['article', slug] }, () => newArticle);
 
         return { previousArticle };
       }
     },
-    onError: (err, newTodo, context) => {
+    onError: (err, _, context) => {
+      console.error(err.message);
       queryClient.setQueryData(['article', slug], context?.previousArticle);
     },
     onSettled: () => {
@@ -90,7 +87,7 @@ const useArticle = ({ slug }: { slug: string }) => {
 
   const { mutate: follow } = useMutation({
     mutationFn: async (username: string) => {
-      return fetch(`${origin}/api/profiles/${username}`, { method: HTTP_METHOD.POST }).then(res => res.json());
+      return fetch(`/api/profiles/${username}`, { method: HTTP_METHOD.POST }).then(res => res.json());
     },
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['article', slug] });
@@ -110,14 +107,13 @@ const useArticle = ({ slug }: { slug: string }) => {
           },
         };
 
-        console.log(newArticle);
-
         queryClient.setQueriesData({ queryKey: ['article', slug] }, () => newArticle);
 
         return { previousArticle };
       }
     },
-    onError: (err, newTodo, context) => {
+    onError: (err, _, context) => {
+      console.error(err.message);
       queryClient.setQueryData(['article', slug], context?.previousArticle);
     },
     onSettled: () => {
@@ -127,7 +123,7 @@ const useArticle = ({ slug }: { slug: string }) => {
 
   const { mutate: unFollow } = useMutation({
     mutationFn: async (username: string) => {
-      return fetch(`${origin}/api/profiles/${username}`, { method: HTTP_METHOD.DELETE }).then(res => res.json());
+      return fetch(`/api/profiles/${username}`, { method: HTTP_METHOD.DELETE }).then(res => res.json());
     },
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['article', slug] });
@@ -154,7 +150,8 @@ const useArticle = ({ slug }: { slug: string }) => {
         return { previousArticle };
       }
     },
-    onError: (err, newTodo, context) => {
+    onError: (err, _, context) => {
+      console.error(err.message);
       queryClient.setQueryData(['article', slug], context?.previousArticle);
     },
     onSettled: () => {
