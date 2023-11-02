@@ -3,7 +3,6 @@
 import ArticleList from '@/components/article/ArticleList';
 import ArticleListSkeleton from '@/components/article/ArticleListSkeleton';
 import ProfileBox from '@/components/profile/ProfileBox';
-import ProfileSkeleton from '@/components/profile/ProfileSkeleton';
 import useProfile from '@/hooks/useProfile';
 import { container } from '@/styles/common.css';
 import dynamic from 'next/dynamic';
