@@ -20,6 +20,7 @@ const useArticle = ({ slug }: { slug: string }) => {
     onMutate: async (slug: string) => {
       await queryClient.cancelQueries({ queryKey: ['article', slug] });
       const previousArticle = queryClient.getQueryData(['article', slug]);
+      // 타입 지정하기
       const newArticle = {
         ...previousArticle,
         data: {
@@ -81,7 +82,77 @@ const useArticle = ({ slug }: { slug: string }) => {
     },
   });
 
-  return { article, favorite, unFavorite };
+  const { mutate: follow } = useMutation({
+    mutationFn: async (username: string) => {
+      return fetch(`${origin}/api/profiles/${username}`, { method: HTTP_METHOD.POST }).then(res => res.json());
+    },
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ['article', slug] });
+      const previousArticle = queryClient.getQueryData(['article', slug]);
+      const newArticle = {
+        ...previousArticle,
+        data: {
+          ...previousArticle.data,
+          article: {
+            ...previousArticle.data.article,
+            author: {
+              ...previousArticle.data.article.author,
+              following: true,
+            },
+          },
+        },
+      };
+
+      console.log(newArticle);
+
+      queryClient.setQueriesData({ queryKey: ['article', slug] }, () => newArticle);
+
+      return { previousArticle };
+    },
+    onError: (err, newTodo, context) => {
+      queryClient.setQueryData(['article', slug], context.previousArticle);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['article', slug] });
+    },
+  });
+
+  const { mutate: unFollow } = useMutation({
+    mutationFn: async (username: string) => {
+      return fetch(`${origin}/api/profiles/${username}`, { method: HTTP_METHOD.DELETE }).then(res => res.json());
+    },
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ['article', slug] });
+      const previousArticle = queryClient.getQueryData(['article', slug]);
+      const newArticle = {
+        ...previousArticle,
+        data: {
+          ...previousArticle.data,
+          article: {
+            ...previousArticle.data.article,
+            author: {
+              ...previousArticle.data.article.author,
+              following: false,
+            },
+          },
+        },
+      };
+
+      console.log(newArticle);
+
+      queryClient.setQueriesData({ queryKey: ['article', slug] }, () => newArticle);
+
+      return { previousArticle };
+    },
+    onError: (err, newTodo, context) => {
+      queryClient.setQueryData(['article', slug], context.previousArticle);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['article', slug] });
+    },
+  });
+
+  return { article, favorite, unFavorite, follow, unFollow };
 };
 
 export default useArticle;

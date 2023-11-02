@@ -12,8 +12,6 @@ import useUserStore from '@/stores/useUserStore';
 import { articleContent, articleDetailTitle } from '@/styles/article.css';
 import { container, flex, justifyCenter, paddingTB } from '@/styles/common.css';
 import { User } from '@/types/api/users';
-
-import { useQuery } from '@tanstack/react-query';
 import React, { Suspense } from 'react';
 type Props = {
   params: { slug: string };
@@ -21,7 +19,7 @@ type Props = {
 const ArticlePage = ({ params: { slug } }: Props) => {
   const { username } = useUserStore() as User;
 
-  const { article, favorite, unFavorite } = useArticle({ slug });
+  const { article, favorite, unFavorite, follow, unFollow } = useArticle({ slug });
 
   const { title, author, createdAt, body, tagList, favoritesCount, favorited } = article;
 
@@ -40,7 +38,7 @@ const ArticlePage = ({ params: { slug } }: Props) => {
               </div>
             ) : (
               <div className={flex}>
-                <FollowButton author={author} slug={slug} />
+                <FollowButton author={author} follow={follow} unFollow={unFollow} />
                 <FavoriteButton
                   favorited={favorited}
                   favoritesCount={favoritesCount}
@@ -67,8 +65,14 @@ const ArticlePage = ({ params: { slug } }: Props) => {
               </div>
             ) : (
               <div className={flex}>
-                <FollowButton author={author} slug={slug} />
-                <FavoriteButton favoritesCount={favoritesCount} />
+                <FollowButton author={author} follow={follow} unFollow={unFollow} />
+                <FavoriteButton
+                  favorited={favorited}
+                  favoritesCount={favoritesCount}
+                  favorite={favorite}
+                  slug={slug}
+                  unFavorite={unFavorite}
+                />
               </div>
             )}
           </div>

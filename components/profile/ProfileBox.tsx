@@ -9,8 +9,10 @@ type Props = {
   image: string;
   username: string;
   following: boolean;
+  follow: any;
+  unFollow: any;
 };
-const ProfileBox = ({ image, username, following }: Props) => {
+const ProfileBox = ({ image, username, following, follow, unFollow }: Props) => {
   const { username: currentUsername } = useUserStore() as User;
   return (
     <div className={userBlock}>
@@ -23,7 +25,7 @@ const ProfileBox = ({ image, username, following }: Props) => {
             &nbsp; Edit Profile Settings
           </Link>
         ) : (
-          <FollowButton author={{ username, following }} />
+          <FollowButton author={{ username, following }} follow={follow} unFollow={unFollow} />
         )}
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { HTTP_METHOD } from '@/constants/api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-const useProfile = ({ username, slug }: { username?: string; slug: string }) => {
+const useProfile = ({ username }: { username?: string }) => {
   const queryClient = useQueryClient();
   const origin = process.env.NODE_ENV === 'production' ? 'https://next-world-ten.vercel.app' : 'http://localhost:3000';
   const { data: profile } = useQuery({
@@ -16,33 +16,30 @@ const useProfile = ({ username, slug }: { username?: string; slug: string }) => 
       return fetch(`${origin}/api/profiles/${username}`, { method: HTTP_METHOD.POST }).then(res => res.json());
     },
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['article', slug] });
-      const previousArticle = queryClient.getQueryData(['article', slug]);
-      const newArticle = {
-        ...previousArticle,
-        data: {
-          ...previousArticle.data,
-          article: {
-            ...previousArticle.data.article,
-            author: {
-              ...previousArticle.data.article.author,
-              following: true,
-            },
+      await queryClient.cancelQueries({ queryKey: ['profile', username] });
+      const previousProfile = queryClient.getQueryData(['profile', username]);
+      const newProfile = {
+        ...previousProfile,
+        response: {
+          ...previousProfile.response,
+          profile: {
+            ...previousProfile.response.profile,
+            following: true,
           },
         },
       };
 
-      console.log(newArticle);
+      console.log(newProfile);
 
-      queryClient.setQueriesData({ queryKey: ['article', slug] }, () => newArticle);
+      queryClient.setQueriesData({ queryKey: ['profile', username] }, () => newProfile);
 
-      return { previousArticle };
+      return { newProfile };
     },
     onError: (err, newTodo, context) => {
-      queryClient.setQueryData(['article', slug], context.previousArticle);
+      queryClient.setQueryData(['profile', username], context.newProfile);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['article', slug] });
+      queryClient.invalidateQueries({ queryKey: ['profile', username] });
     },
   });
 
@@ -51,33 +48,30 @@ const useProfile = ({ username, slug }: { username?: string; slug: string }) => 
       return fetch(`${origin}/api/profiles/${username}`, { method: HTTP_METHOD.DELETE }).then(res => res.json());
     },
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['article', slug] });
-      const previousArticle = queryClient.getQueryData(['article', slug]);
-      const newArticle = {
-        ...previousArticle,
-        data: {
-          ...previousArticle.data,
-          article: {
-            ...previousArticle.data.article,
-            author: {
-              ...previousArticle.data.article.author,
-              following: false,
-            },
+      await queryClient.cancelQueries({ queryKey: ['profile', username] });
+      const previousProfile = queryClient.getQueryData(['profile', username]);
+      const newProfile = {
+        ...previousProfile,
+        response: {
+          ...previousProfile.response,
+          profile: {
+            ...previousProfile.response.profile,
+            following: false,
           },
         },
       };
 
-      console.log(newArticle);
+      console.log(newProfile);
 
-      queryClient.setQueriesData({ queryKey: ['article', slug] }, () => newArticle);
+      queryClient.setQueriesData({ queryKey: ['profile', username] }, () => newProfile);
 
-      return { previousArticle };
+      return { newProfile };
     },
     onError: (err, newTodo, context) => {
-      queryClient.setQueryData(['article', slug], context.previousArticle);
+      queryClient.setQueryData(['profile', username], context.newProfile);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['article', slug] });
+      queryClient.invalidateQueries({ queryKey: ['profile', username] });
     },
   });
 
