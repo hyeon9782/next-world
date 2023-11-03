@@ -1,9 +1,11 @@
 import { HTTP_METHOD } from '@/constants/api';
 import { ArticleResponse } from '@/types/route/articles';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 const useArticle = ({ slug }: { slug: string }) => {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const { data: article } = useQuery({
     queryKey: ['article', slug],
@@ -41,6 +43,7 @@ const useArticle = ({ slug }: { slug: string }) => {
     },
     onError: (err, _, context) => {
       console.error(err.message);
+      router.push('/login');
       queryClient.setQueryData(['article', slug], context?.previousArticle);
     },
     onSettled: () => {
@@ -114,6 +117,7 @@ const useArticle = ({ slug }: { slug: string }) => {
     },
     onError: (err, _, context) => {
       console.error(err.message);
+      router.push('/login');
       queryClient.setQueryData(['article', slug], context?.previousArticle);
     },
     onSettled: () => {

@@ -7,12 +7,6 @@ const getArticlesAPI = (auth: string, offset = 0, limit = 20) => {
       Authorization: `Token ${auth}`,
     },
   });
-  // return http.get(`/articles?limit=${limit}&offset=${offset ? offset * limit : 0}`, {
-  //   headers: {
-  //     'Content-Type': 'application/json; charset=utf-8',
-  //     Authorization: `Token ${auth}`,
-  //   },
-  // });
 };
 
 const getArticlesWithTagAPI = (tag: string, offset = 0, limit = 10) => {

@@ -3,6 +3,7 @@ import { RefObject } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
 import { HTTP_METHOD } from '@/constants/api';
 import { ArticlesResponse } from '@/types/route/articles';
+import { useRouter } from 'next/navigation';
 
 const useArticles = ({
   targetRef,
@@ -14,6 +15,7 @@ const useArticles = ({
   username?: string;
 }) => {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const {
     data: articlesData,
@@ -92,6 +94,7 @@ const useArticles = ({
       }
     },
     onError: (err, _, context) => {
+      router.push('/login');
       queryClient.setQueryData(['articles', tab], context?.previousArticles);
     },
     onSettled: () => {

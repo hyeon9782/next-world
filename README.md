@@ -57,13 +57,16 @@
 - Real World에서 지원하는 API를 사용해 블로그 구현
 - 컴포넌트 단위 Skeleton UI를 사용해 Streaming 구현
 - Optimistic Updates 활용한 좋아요 & 팔로우 버튼 구현
-- 효율적인 Modal 컴포넌트 구현
+- 전역 상태 관리로 효율적인 Modal 컴포넌트 구현
 - Route Handler를 Proxy처럼 사용해 보안 강화
 
 ## Will Update
 
 - Route Handler Response 일관성 있게 통일하기
 - Error Message에 따라 알맞은 에러 처리
+- 반응형 UI 적용
+- 테스트 코드 작성
+- 아토믹 디자인 시스템 구현
 
 ## Trouble Shooting
 

@@ -1,6 +1,8 @@
 'use client';
 
+import { modals } from '@/composables/Modals';
 import useAuth from '@/hooks/useAuth';
+import useModalsStore from '@/stores/useModalStore';
 import useUserStore from '@/stores/useUserStore';
 import { form } from '@/styles/account.css';
 import { fillGreenButton, input } from '@/styles/common.css';
@@ -13,23 +15,29 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 const SignInForm = () => {
   const router = useRouter();
   const { saveUserInfo } = useUserStore() as UserAction;
+  const { openModal, closeModal } = useModalsStore();
 
   const [loginUser, setLoginUser] = useState<LoginUser>({
     email: '',
     password: '',
   });
 
-  const loginSuccess = (res: UserResponse) => {
+  const onSuccess = (res: UserResponse) => {
     saveUserInfo({ ...res.user });
     router.push('/');
   };
 
-  const loginError = (err: Error) => {
-    console.error(err.message);
-    alert('이메일 또는 비밀번호가 잘못되었습니다.');
+  const onError = () => {
+    openModal(modals.alert, {
+      title: '',
+      content: '이메일 또는 비밀번호가 잘못되었습니다.',
+      onClose: () => {
+        closeModal(modals.alert);
+      },
+    });
   };
 
-  const { login } = useAuth({ loginSuccess, loginError });
+  const { login } = useAuth({ onSuccess, onError });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

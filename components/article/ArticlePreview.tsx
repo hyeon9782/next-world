@@ -18,7 +18,7 @@ const ArticlePreview = ({
   const router = useRouter();
   const { tab } = useCurrentTab();
 
-  const { favorite, unFavorite } = useArticles({});
+  const { favorite, unFavorite } = useArticles({ tab });
 
   const handleButtonClick = (slug: string) => {
     if (favorited) {
