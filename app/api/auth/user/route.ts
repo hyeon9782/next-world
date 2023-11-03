@@ -20,6 +20,6 @@ export async function PUT(request: NextRequest) {
 
     return NextResponse.json({ message: 'Success', success: true, data: res });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return new NextResponse(error.message, { status: 500 });
   }
 }

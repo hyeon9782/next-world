@@ -8,13 +8,6 @@ async function POST(request: NextRequest) {
     const { slug } = await request.json();
     const token = request.cookies.get('token')?.value || '';
 
-    // const res = await http.post(`/articles/${slug}/favorite`, '', {
-    //   headers: {
-    //     'Content-Type': 'application/json; charset=utf-8',
-    //     Authorization: `Token ${token}`,
-    //   },
-    // });
-
     const res = await favoriteArticle(slug, token);
 
     return NextResponse.json({ message: 'Favorite Success', success: true, data: res });
@@ -28,12 +21,6 @@ async function DELETE(request: NextRequest) {
   try {
     const { slug } = await request.json();
     const token = getToken(request);
-    // const res = await http.delete(`/articles/${slug}/favorite`, {
-    //   headers: {
-    //     'Content-Type': 'application/json; charset=utf-8',
-    //     Authorization: `Token ${token}`,
-    //   },
-    // });
 
     const res = await unFavoriteArticle(slug, token);
 

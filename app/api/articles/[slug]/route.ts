@@ -26,7 +26,7 @@ async function GET(req: NextRequest, route: { params: { slug: string } }) {
     );
   } catch (error: any) {
     console.log(error);
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return new NextResponse(error.message, { status: 500 });
   }
 }
 
@@ -45,7 +45,7 @@ async function PUT(req: NextRequest, route: { params: { slug: string } }) {
 
     return NextResponse.json({ message: 'Article Update Success', success: true, data: res });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return new NextResponse(error.message, { status: 500 });
   }
 }
 
@@ -63,7 +63,7 @@ async function DELETE(req: NextRequest, route: { params: { slug: string } }) {
 
     return NextResponse.json({ message: 'Article Delete Success', success: true, data: res });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return new NextResponse(error.message, { status: 500 });
   }
 }
 

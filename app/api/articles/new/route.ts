@@ -15,6 +15,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ message: 'Create Article Success', success: true, data: res });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return new NextResponse(error.message, { status: 500 });
   }
 }

@@ -13,8 +13,8 @@ async function GET(req: NextRequest, route: { params: { username: string } }) {
     });
 
     return NextResponse.json({ message: 'Get a Profile Success', response });
-  } catch (err) {
-    return NextResponse.json({ message: 'Get a Profile Fail', err });
+  } catch (error: any) {
+    return new NextResponse(error.message, { status: 500 });
   }
 }
 
@@ -32,8 +32,8 @@ async function POST(req: NextRequest, route: { params: { username: string } }) {
     });
 
     return NextResponse.json({ message: 'Follow Success', response });
-  } catch (err) {
-    return NextResponse.json({ message: 'Follow Fail', err });
+  } catch (error: any) {
+    return new NextResponse(error.message, { status: 500 });
   }
 }
 
@@ -49,8 +49,8 @@ async function DELETE(req: NextRequest, route: { params: { username: string } })
     });
 
     return NextResponse.json({ message: 'Unfollow Success', response });
-  } catch (err) {
-    return NextResponse.json({ message: 'Unfollow Fail', err });
+  } catch (error: any) {
+    return new NextResponse(error.message, { status: 500 });
   }
 }
 

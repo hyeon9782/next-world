@@ -1,6 +1,8 @@
 'use client';
 
+import { modals } from '@/composables/Modals';
 import useAuth from '@/hooks/useAuth';
+import useModalsStore from '@/stores/useModalStore';
 import useUserStore from '@/stores/useUserStore';
 import { form } from '@/styles/account.css';
 import { fillGreenButton, input } from '@/styles/common.css';
@@ -14,21 +16,28 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 const SignUpForm = () => {
   const router = useRouter();
   const { saveUserInfo } = useUserStore() as UserAction;
+  const { openModal, closeModal } = useModalsStore();
   const [newUser, setNewUser] = useState<NewUser>({
     username: '',
     email: '',
     password: '',
   });
 
-  const signupSuccess = (res: any) => {
+  const onSuccess = (res: any) => {
     saveUserInfo({
       ...res.user,
     });
     router.push('/');
   };
 
-  const signupError = () => {
-    alert('회원가입에 실패했습니다.');
+  const onError = () => {
+    openModal(modals.alert, {
+      title: '',
+      content: '회원가입에 실패했습니다.',
+      onClose: () => {
+        closeModal(modals.alert);
+      },
+    });
     setNewUser({
       username: '',
       email: '',
@@ -36,7 +45,7 @@ const SignUpForm = () => {
     });
   };
 
-  const { signup } = useAuth({ signupSuccess, signupError });
+  const { signup } = useAuth({ onSuccess, onError });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

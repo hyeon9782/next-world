@@ -2,20 +2,28 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getUserAPI, updateUserAPI } from '@/services/users';
 
 export async function GET(req: NextRequest) {
-  const token = req.cookies.get('token')?.value || '';
+  try {
+    const token = req.cookies.get('token')?.value || '';
 
-  const { user } = await getUserAPI(token);
+    const { user } = await getUserAPI(token);
 
-  return NextResponse.json({
-    message: 'Login successfull',
-    success: true,
-    user,
-  });
+    return NextResponse.json({
+      message: 'Login successfull',
+      success: true,
+      user,
+    });
+  } catch (error: any) {
+    return new NextResponse(error.message, { status: 500 });
+  }
 }
 
 export async function PUT(req: NextRequest) {
-  const token = req.cookies.get('token')?.value || '';
-  const user = await req.json();
+  try {
+    const token = req.cookies.get('token')?.value || '';
+    const user = await req.json();
 
-  return updateUserAPI(user, token);
+    return updateUserAPI(user, token);
+  } catch (error: any) {
+    return new NextResponse(error.message, { status: 500 });
+  }
 }

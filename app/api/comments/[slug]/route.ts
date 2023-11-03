@@ -15,7 +15,7 @@ async function GET(req: NextRequest, route: { params: { slug: string } }) {
 
     return NextResponse.json({ message: 'Comment Get Success', success: true, data: res });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return new NextResponse(error.message, { status: 500 });
   }
 }
 
@@ -34,7 +34,7 @@ async function POST(req: NextRequest, route: { params: { slug: string } }) {
 
     return NextResponse.json({ message: 'Comment Create Success', success: true, data: res });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return new NextResponse(error.message, { status: 500 });
   }
 }
 
@@ -56,7 +56,7 @@ async function DELETE(req: NextRequest, route: { params: { slug: string } }) {
 
     return NextResponse.json({ message: 'Comment Delete Success', success: true, data: res });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return new NextResponse(error.message, { status: 500 });
   }
 }
 
