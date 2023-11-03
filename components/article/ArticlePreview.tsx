@@ -3,11 +3,9 @@ import { articleDescription, articleMeta, articlePreview, articleReadMore, artic
 import UserBox from '../user/UserBox';
 import TagList from '../tags/TagList';
 import { useRouter } from 'next/navigation';
-import { FillHeartIcon } from '@/composables/icons';
-import { fillGreenButton, flex, flexBetween, greenButton } from '@/styles/common.css';
-import useCurrentTab from '@/stores/useCurrentTab';
-import useArticles from '@/hooks/useArticles';
+import { flexBetween } from '@/styles/common.css';
 import { Article } from '@/types/api/articles';
+import HeartButton from './HeartButton';
 
 type Props = {
   article: Article;
@@ -16,29 +14,11 @@ const ArticlePreview = ({
   article: { title, description, favorited, favoritesCount, tagList, author, createdAt, slug = 'asd' },
 }: Props) => {
   const router = useRouter();
-  const { tab } = useCurrentTab();
-
-  const { favorite, unFavorite } = useArticles({ tab });
-
-  const handleButtonClick = (slug: string) => {
-    if (favorited) {
-      unFavorite(slug);
-    } else {
-      favorite(slug);
-    }
-  };
-
   return (
     <div className={articlePreview}>
       <div className={articleMeta}>
         <UserBox author={author} createdAt={createdAt} />
-
-        <button onClick={() => handleButtonClick(slug)} className={favorited ? `${fillGreenButton}` : `${greenButton}`}>
-          <div className={flex}>
-            <FillHeartIcon /> &nbsp;
-            {favoritesCount}
-          </div>
-        </button>
+        <HeartButton favorited={favorited} favoritesCount={favoritesCount} slug={slug} />
       </div>
       <div onClick={() => router.push(`/article/${slug}`)}>
         <div className={articleTitle}>{title}</div>

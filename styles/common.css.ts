@@ -112,6 +112,8 @@ export const greenButton = style([
   button,
   {
     border: '1px solid #5CB85C',
+    fontSize: '1rem',
+    padding: '0.75rem 1rem',
     color: '#5CB85C',
     ':hover': {
       background: '#5CB85C',
@@ -150,8 +152,8 @@ export const fillGreenButton = style([
     border: '1px solid #5CB85C',
     background: '#5CB85C',
     color: '#fff',
-    padding: '0.75rem 1.5rem',
-    fontSize: '1.25rem',
+    padding: '0.75rem 1rem',
+    fontSize: '1rem',
     borderRadius: '0.3rem',
     ':hover': {
       backgroundColor: '#449d44',

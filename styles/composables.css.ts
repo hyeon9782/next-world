@@ -16,11 +16,12 @@ export const confirmModal = style({
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  height: '30%',
-  width: '70%',
+  height: '150px',
+  width: '300px',
   background: 'white',
   borderRadius: '5px',
   padding: '10px',
+  boxSizing: 'border-box',
 });
 
 export const confirmHeader = style({
@@ -29,11 +30,13 @@ export const confirmHeader = style({
 });
 
 export const confirmSection = style({
-  height: '70%',
+  height: '65%',
+  display: 'flex',
+  alignItems: 'center',
 });
 
 export const confirmFooter = style({
-  height: '15%',
+  height: '20%',
   display: 'flex',
   justifyContent: 'space-around',
 });
@@ -43,24 +46,26 @@ export const alertModal = style({
   top: '20%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  height: '200px',
-  width: '400px',
+  height: '150px',
+  width: '300px',
   background: 'white',
   borderRadius: '5px',
   padding: '10px',
 });
 
 export const alertHeader = style({
-  height: '15%',
+  // height: '15%',
   fontWeight: 'bold',
 });
 
 export const alertSection = style({
-  height: '70%',
+  height: '80%',
+  display: 'flex',
+  alignItems: 'center',
 });
 
 export const alertFooter = style({
-  height: '15%',
+  height: '20%',
   display: 'flex',
   justifyContent: 'flex-end',
 });
