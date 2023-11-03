@@ -33,7 +33,7 @@ const SignUpForm = () => {
   const onError = () => {
     openModal(modals.alert, {
       title: '',
-      content: '회원가입에 실패했습니다.',
+      content: '이미 가입된 이메일입니다.',
       onClose: () => {
         closeModal(modals.alert);
       },

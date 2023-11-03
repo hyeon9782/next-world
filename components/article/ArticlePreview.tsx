@@ -32,7 +32,7 @@ const ArticlePreview = ({
     <div className={articlePreview}>
       <div className={articleMeta}>
         <UserBox author={author} createdAt={createdAt} />
-        {/* <ToggleButton onIcon={<FillHeartIcon />} offIcon={} onToggle={handleButtonClick} toggled={favorited} /> */}
+
         <button onClick={() => handleButtonClick(slug)} className={favorited ? `${fillGreenButton}` : `${greenButton}`}>
           <div className={flex}>
             <FillHeartIcon /> &nbsp;

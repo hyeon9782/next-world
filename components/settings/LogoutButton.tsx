@@ -10,16 +10,12 @@ import { useRouter } from 'next/navigation';
 const LogoutButton = () => {
   const router = useRouter();
   const { logout } = useUserStore() as UserAction;
-  const signoutSuccess = () => {
+  const onSuccess = () => {
     logout();
     router.push('/login');
   };
 
-  const signoutError = (err: Error) => {
-    console.error(err.message);
-  };
-
-  const { signOut } = useAuth({ signoutSuccess, signoutError });
+  const { signOut } = useAuth({ onSuccess });
   return (
     <div className={flex}>
       <button className={logoutButton} onClick={() => signOut()}>

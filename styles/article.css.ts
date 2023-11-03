@@ -33,19 +33,23 @@ export const articlePreview = style({
   borderTop: '1px solid rgba(0, 0, 0, 0.1)',
   padding: '1.5rem 0',
   width: '100%',
-  height: '200px',
+  height: '280px',
+  boxSizing: 'border-box',
 });
 
 export const articleMeta = style({
-  marginBottom: '1rem',
+  marginBottom: '14px',
   display: 'flex',
   justifyContent: 'space-between',
 });
 
 export const articleTitle = style({
+  height: '62px',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
   fontWeight: '600',
   fontSize: '1.5rem',
-  marginBottom: '3px',
 });
 
 export const articleDetailTitle = style({
@@ -55,11 +59,10 @@ export const articleDetailTitle = style({
 });
 
 export const articleDescription = style({
+  height: '100px',
   fontWeight: '300',
   fontSize: '1rem',
-  lineHeight: '1.3rem',
   color: '#999',
-  marginBottom: '15px',
 });
 
 export const articleReadMore = style({

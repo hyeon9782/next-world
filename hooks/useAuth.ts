@@ -1,7 +1,7 @@
 import { LoginUser, NewUser } from '@/types/api/users';
 import { useMutation } from '@tanstack/react-query';
 // 로그인 / 로그아웃 / 회원가입 / 로그인 확인
-const useAuth = ({ onSuccess, onError }: { onSuccess: (arg: any) => void; onError: () => void }) => {
+const useAuth = ({ onSuccess, onError }: { onSuccess: (arg: any) => void; onError?: () => void }) => {
   // 로그인
   const { mutate: login } = useMutation({
     mutationFn: async (loginUser: LoginUser) =>
