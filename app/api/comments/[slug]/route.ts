@@ -1,17 +1,14 @@
+import { createComment, deleteComment, getComments } from '@/api/comments';
 import { httpClient } from '@/api/http/httpClient';
+import { getToken } from '@/utils/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 
-async function GET(req: NextRequest, route: { params: { slug: string } }) {
+async function GET(request: NextRequest, route: { params: { slug: string } }) {
   try {
     const slug = route.params.slug;
-    const token = req.cookies.get('token')?.value || '';
+    const token = getToken(request);
 
-    const res = await httpClient.get(`/articles/${slug}/comments`, {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
-    });
+    const res = getComments(slug, token);
 
     return NextResponse.json({ message: 'Comment Get Success', success: true, data: res });
   } catch (error: any) {
@@ -19,18 +16,13 @@ async function GET(req: NextRequest, route: { params: { slug: string } }) {
   }
 }
 
-async function POST(req: NextRequest, route: { params: { slug: string } }) {
+async function POST(request: NextRequest, route: { params: { slug: string } }) {
   try {
-    const body = await req.json();
+    const body = await request.json();
     const slug = route.params.slug;
-    const token = req.cookies.get('token')?.value || '';
+    const token = getToken(request);
 
-    const res = await httpClient.post(`/articles/${slug}/comments`, body, {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
-    });
+    const res = createComment(slug, token, body);
 
     return NextResponse.json({ message: 'Comment Create Success', success: true, data: res });
   } catch (error: any) {
@@ -38,21 +30,16 @@ async function POST(req: NextRequest, route: { params: { slug: string } }) {
   }
 }
 
-async function DELETE(req: NextRequest, route: { params: { slug: string } }) {
+async function DELETE(request: NextRequest, route: { params: { slug: string } }) {
   try {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(request.url);
 
-    const id = searchParams.get('id');
+    const id = searchParams.get('id') || '';
     const slug = route.params.slug;
 
-    const token = req.cookies.get('token')?.value || '';
+    const token = getToken(request);
 
-    const res = await httpClient.delete(`/articles/${slug}/comments/${id}`, {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
-    });
+    const res = deleteComment(slug, id, token);
 
     return NextResponse.json({ message: 'Comment Delete Success', success: true, data: res });
   } catch (error: any) {

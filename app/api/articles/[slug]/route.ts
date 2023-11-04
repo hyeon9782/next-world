@@ -1,17 +1,13 @@
-import { httpClient } from '@/api/http/httpClient';
+import { deleteArticle, getArticleAPI, updateArticle } from '@/api/articles';
+import { getToken } from '@/utils/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 
-async function GET(req: NextRequest, route: { params: { slug: string } }) {
+async function GET(request: NextRequest, route: { params: { slug: string } }) {
   try {
     const slug = route.params.slug;
-    const token = req.cookies.get('token')?.value || '';
+    const token = getToken(request);
 
-    const res = await httpClient.get(`/articles/${slug}`, {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
-    });
+    const res = await getArticleAPI(slug, token);
 
     return NextResponse.json(
       { message: 'Article Get Success', success: true, data: res },
@@ -25,23 +21,17 @@ async function GET(req: NextRequest, route: { params: { slug: string } }) {
       }
     );
   } catch (error: any) {
-    console.log(error);
     return new NextResponse(error.message, { status: 500 });
   }
 }
 
-async function PUT(req: NextRequest, route: { params: { slug: string } }) {
+async function PUT(request: NextRequest, route: { params: { slug: string } }) {
   try {
-    const body = await req.json();
+    const body = await request.json();
     const slug = route.params.slug;
-    const token = req.cookies.get('token')?.value || '';
+    const token = getToken(request);
 
-    const res = await httpClient.put(`/articles/${slug}`, body, {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
-    });
+    const res = updateArticle(slug, token, body);
 
     return NextResponse.json({ message: 'Article Update Success', success: true, data: res });
   } catch (error: any) {
@@ -49,17 +39,12 @@ async function PUT(req: NextRequest, route: { params: { slug: string } }) {
   }
 }
 
-async function DELETE(req: NextRequest, route: { params: { slug: string } }) {
+async function DELETE(request: NextRequest, route: { params: { slug: string } }) {
   try {
     const slug = route.params.slug;
-    const token = req.cookies.get('token')?.value || '';
+    const token = getToken(request);
 
-    const res = await httpClient.delete(`/articles/${slug}`, {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
-    });
+    const res = deleteArticle(slug, token);
 
     return NextResponse.json({ message: 'Article Delete Success', success: true, data: res });
   } catch (error: any) {

@@ -1,9 +1,11 @@
 import { httpClient } from '@/api/http/httpClient';
+import { followAPI, unFollowAPI } from '@/api/profile';
+import { getToken } from '@/utils/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 
-async function GET(req: NextRequest, route: { params: { username: string } }) {
+async function GET(request: NextRequest, route: { params: { username: string } }) {
   const username = route.params.username;
-  const token = req.cookies.get('token')?.value || '';
+  const token = getToken(request);
 
   try {
     const response = await httpClient.get(`/profiles/${username.replace('@', '')}`, {
@@ -19,17 +21,13 @@ async function GET(req: NextRequest, route: { params: { username: string } }) {
 }
 
 // Follow a user
-async function POST(req: NextRequest, route: { params: { username: string } }) {
+async function POST(request: NextRequest, route: { params: { username: string } }) {
   const username = route.params.username;
 
-  const token = req.cookies.get('token')?.value || '';
+  const token = getToken(request);
 
   try {
-    const response = await httpClient.post(`/profiles/${username}/follow`, '', {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    });
+    const response = followAPI(username, token);
 
     return NextResponse.json({ message: 'Follow Success', response });
   } catch (error: any) {
@@ -38,15 +36,11 @@ async function POST(req: NextRequest, route: { params: { username: string } }) {
 }
 
 // Unfollow a user
-async function DELETE(req: NextRequest, route: { params: { username: string } }) {
+async function DELETE(request: NextRequest, route: { params: { username: string } }) {
   const username = route.params.username;
-  const token = req.cookies.get('token')?.value || '';
+  const token = getToken(request);
   try {
-    const response = await httpClient.delete(`/profiles/${username}/follow`, {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    });
+    const response = unFollowAPI(username, token);
 
     return NextResponse.json({ message: 'Unfollow Success', response });
   } catch (error: any) {

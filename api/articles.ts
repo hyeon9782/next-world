@@ -15,7 +15,6 @@ const getArticlesWithTagAPI = (tag: string, offset = 0, limit = 10) => {
 const getArticlesWithAuthorAPI = (username: string, auth: string, offset = 0, limit = 10) => {
   return httpClient.get(`/articles?author=${username}&limit=${limit}&offset=${offset ? offset * limit : 0}`, {
     headers: {
-      'Content-Type': 'application/json; charset=utf-8',
       Authorization: `Token ${auth}`,
     },
   });
@@ -24,7 +23,6 @@ const getArticlesWithAuthorAPI = (username: string, auth: string, offset = 0, li
 const getArticlesWithFavoritedAPI = (username: string, auth: string, offset = 0, limit = 10) => {
   return httpClient.get(`/articles?favorited=${username}&limit=${limit}&offset=${offset ? offset * limit : 0}`, {
     headers: {
-      'Content-Type': 'application/json; charset=utf-8',
       Authorization: `Token ${auth}`,
     },
   });
@@ -33,14 +31,17 @@ const getArticlesWithFavoritedAPI = (username: string, auth: string, offset = 0,
 const getArticlesFeed = (offset = 0, auth: string, limit = 10) => {
   return httpClient.get(`/articles/feed?limit=${limit}&offset=${offset ? offset * limit : 0}`, {
     headers: {
-      'Content-Type': 'application/json; charset=utf-8',
       Authorization: `Token ${auth}`,
     },
   });
 };
 
-const getArticleAPI = (slug: string) => {
-  return httpClient.get(`/articles/${slug}`);
+const getArticleAPI = (slug: string, token: string) => {
+  return httpClient.get(`/articles/${slug}`, {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  });
 };
 
 const favoriteArticle = async (slug: string, token: string) => {
@@ -59,6 +60,31 @@ const unFavoriteArticle = async (slug: string, token: string) => {
   });
 };
 
+const createArticle = (token: string, body: any) => {
+  return httpClient.post('/articles', body, {
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      Authorization: `Token ${token}`,
+    },
+  });
+};
+
+const updateArticle = (slug: string, token: string, body: any) => {
+  return httpClient.put(`/articles/${slug}`, body, {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  });
+};
+
+const deleteArticle = (slug: string, token: string) => {
+  return httpClient.delete(`/articles/${slug}`, {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  });
+};
+
 export {
   getArticlesAPI,
   getArticlesWithAuthorAPI,
@@ -68,4 +94,7 @@ export {
   getArticleAPI,
   favoriteArticle,
   unFavoriteArticle,
+  createArticle,
+  updateArticle,
+  deleteArticle,
 };

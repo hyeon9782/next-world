@@ -1,17 +1,13 @@
-import { httpClient } from '@/api/http/httpClient';
+import { createArticle } from '@/api/articles';
+import { getToken } from '@/utils/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
-    const token = request.cookies.get('token')?.value || '';
+    const token = getToken(request);
     const body = await request.json();
 
-    const res = await httpClient.post('/articles', body, {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
-    });
+    const res = createArticle(token, body);
 
     return NextResponse.json({ message: 'Create Article Success', success: true, data: res });
   } catch (error: any) {

@@ -1,9 +1,10 @@
 import { getUserAPI, updateUserAPI } from '@/api/user';
+import { getToken } from '@/utils/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   try {
-    const token = request.cookies.get('token')?.value || '';
+    const token = getToken(request);
     const res = await getUserAPI(token);
     return NextResponse.json({ message: 'Success', success: true, data: res });
   } catch (error: any) {
@@ -14,9 +15,8 @@ export async function GET(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
-    const token = request.cookies.get('token')?.value || '';
+    const token = getToken(request);
     const res = await updateUserAPI(body, token);
-    console.log(res);
 
     return NextResponse.json({ message: 'Success', success: true, data: res });
   } catch (error: any) {

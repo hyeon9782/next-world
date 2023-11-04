@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from 'next/server';
 async function POST(request: NextRequest) {
   try {
     const { slug } = await request.json();
-    const token = request.cookies.get('token')?.value || '';
+    const token = getToken(request);
 
     const res = await favoriteArticle(slug, token);
 
