@@ -1,4 +1,4 @@
-import { getArticlesFeed } from '@/services/articles';
+import { getArticlesFeed } from '@/api/articles';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {

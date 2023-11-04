@@ -1,5 +1,5 @@
+import { getUserAPI, updateUserAPI } from '@/api/user';
 import { NextRequest, NextResponse } from 'next/server';
-import { getUserAPI, updateUserAPI } from '@/services/users';
 
 export async function GET(req: NextRequest) {
   try {

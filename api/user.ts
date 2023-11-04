@@ -1,19 +1,19 @@
 import { LoginUser, NewUser, UpdateUser } from '@/types/api/users';
-import { http } from '@/utils/http';
+import { httpClient } from './http/httpClient';
 
 // 회원가입
 const registerUserAPI = async (user: NewUser) => {
-  return http.post('/users', { user });
+  return httpClient.post('/users', { user });
 };
 
 // 로그인
 const loginAPI = async (user: LoginUser) => {
-  return http.post('/users/login', { user });
+  return httpClient.post('/users/login', { user });
 };
 
 // 회원정보 수정
 const updateUserAPI = async (user: UpdateUser, auth: string) => {
-  return http.put(
+  return httpClient.put(
     '/user',
     { user },
     {
@@ -26,7 +26,7 @@ const updateUserAPI = async (user: UpdateUser, auth: string) => {
 
 // 현재 유저 조회
 const getUserAPI = async (auth: string) => {
-  return http.get('/user', {
+  return httpClient.get('/user', {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
       Authorization: `Token ${auth}`,

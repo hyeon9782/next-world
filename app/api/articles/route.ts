@@ -1,4 +1,4 @@
-import { getArticlesAPI, getArticlesWithFavoritedAPI } from '@/services/articles';
+import { getArticlesAPI, getArticlesWithFavoritedAPI } from '@/api/articles';
 import { getToken } from '@/utils/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 

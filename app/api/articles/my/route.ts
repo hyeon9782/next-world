@@ -1,4 +1,4 @@
-import { getArticlesWithAuthorAPI } from '@/services/articles';
+import { getArticlesWithAuthorAPI } from '@/api/articles';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {

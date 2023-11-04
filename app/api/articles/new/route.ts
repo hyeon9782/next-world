@@ -1,4 +1,4 @@
-import { http } from '@/utils/http';
+import { httpClient } from '@/api/http/httpClient';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
     const token = request.cookies.get('token')?.value || '';
     const body = await request.json();
 
-    const res = await http.post('/articles', body, {
+    const res = await httpClient.post('/articles', body, {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Authorization: `Token ${token}`,

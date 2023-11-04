@@ -1,4 +1,4 @@
-import { http } from '@/utils/http';
+import { httpClient } from '@/api/http/httpClient';
 import { NextRequest, NextResponse } from 'next/server';
 
 async function GET(req: NextRequest, route: { params: { slug: string } }) {
@@ -6,7 +6,7 @@ async function GET(req: NextRequest, route: { params: { slug: string } }) {
     const slug = route.params.slug;
     const token = req.cookies.get('token')?.value || '';
 
-    const res = await http.get(`/articles/${slug}`, {
+    const res = await httpClient.get(`/articles/${slug}`, {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Authorization: `Token ${token}`,
@@ -36,7 +36,7 @@ async function PUT(req: NextRequest, route: { params: { slug: string } }) {
     const slug = route.params.slug;
     const token = req.cookies.get('token')?.value || '';
 
-    const res = await http.put(`/articles/${slug}`, body, {
+    const res = await httpClient.put(`/articles/${slug}`, body, {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Authorization: `Token ${token}`,
@@ -54,7 +54,7 @@ async function DELETE(req: NextRequest, route: { params: { slug: string } }) {
     const slug = route.params.slug;
     const token = req.cookies.get('token')?.value || '';
 
-    const res = await http.delete(`/articles/${slug}`, {
+    const res = await httpClient.delete(`/articles/${slug}`, {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Authorization: `Token ${token}`,

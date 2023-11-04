@@ -1,4 +1,4 @@
-import { http } from '@/utils/http';
+import { httpClient } from '@/api/http/httpClient';
 import { NextRequest, NextResponse } from 'next/server';
 
 async function GET(req: NextRequest, route: { params: { username: string } }) {
@@ -6,7 +6,7 @@ async function GET(req: NextRequest, route: { params: { username: string } }) {
   const token = req.cookies.get('token')?.value || '';
 
   try {
-    const response = await http.get(`/profiles/${username.replace('@', '')}`, {
+    const response = await httpClient.get(`/profiles/${username.replace('@', '')}`, {
       headers: {
         Authorization: `Token ${token}`,
       },
@@ -25,7 +25,7 @@ async function POST(req: NextRequest, route: { params: { username: string } }) {
   const token = req.cookies.get('token')?.value || '';
 
   try {
-    const response = await http.post(`/profiles/${username}/follow`, '', {
+    const response = await httpClient.post(`/profiles/${username}/follow`, '', {
       headers: {
         Authorization: `Token ${token}`,
       },
@@ -42,7 +42,7 @@ async function DELETE(req: NextRequest, route: { params: { username: string } })
   const username = route.params.username;
   const token = req.cookies.get('token')?.value || '';
   try {
-    const response = await http.delete(`/profiles/${username}/follow`, {
+    const response = await httpClient.delete(`/profiles/${username}/follow`, {
       headers: {
         Authorization: `Token ${token}`,
       },
