@@ -92,7 +92,7 @@ const EditForm = ({ slug }: { slug?: string }) => {
         onChange={handleChange}
         value={formData.body}
       ></textarea>
-      <TagInput appendTag={appendTag} />
+      <TagInput appendTag={appendTag} tagList={formData.tagList} />
       <div>
         <button className={editorButton} onClick={handleClick}>
           Publish Article

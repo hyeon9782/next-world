@@ -23,9 +23,7 @@ const CommentBox = ({ slug }: { slug: string }) => {
         <div className={`${flexRow} ${flexCenter}`}>
           <CommentForm slug={slug} />
           <div className={flexRow}>
-            {comments.map((comment: Comment) => (
-              <CommentCard key={comment.id} comment={comment} slug={slug} />
-            ))}
+            {comments?.map((comment: Comment) => <CommentCard key={comment.id} comment={comment} slug={slug} />)}
           </div>
         </div>
       ) : (

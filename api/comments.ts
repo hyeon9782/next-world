@@ -1,6 +1,6 @@
 import { httpClient } from './http/httpClient';
 
-const getComments = (slug: string, token: string) => {
+const getCommentsAPI = (slug: string, token: string) => {
   return httpClient.get(`/articles/${slug}/comments`, {
     headers: {
       Authorization: `Token ${token}`,
@@ -8,7 +8,10 @@ const getComments = (slug: string, token: string) => {
   });
 };
 
-const createComment = (slug: string, token: string, body: any) => {
+const createCommentAPI = (slug: string, token: string, body: any) => {
+  console.log(body);
+  console.log(token);
+
   return httpClient.post(`/articles/${slug}/comments`, body, {
     headers: {
       Authorization: `Token ${token}`,
@@ -16,7 +19,7 @@ const createComment = (slug: string, token: string, body: any) => {
   });
 };
 
-const deleteComment = (slug: string, id: string, token: string) => {
+const deleteCommentAPI = (slug: string, id: string, token: string) => {
   return httpClient.delete(`/articles/${slug}/comments/${id}`, {
     headers: {
       Authorization: `Token ${token}`,
@@ -24,4 +27,4 @@ const deleteComment = (slug: string, id: string, token: string) => {
   });
 };
 
-export { getComments, createComment, deleteComment };
+export { getCommentsAPI, createCommentAPI, deleteCommentAPI };

@@ -1,5 +1,5 @@
 import { httpClient } from './http/httpClient';
 
-export const getTags = async () => {
+export const getTagsAPI = async () => {
   return await httpClient.get('/tags');
 };

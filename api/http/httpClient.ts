@@ -19,6 +19,8 @@ class HttpClient {
   }
 
   private async request(url: string, method: string, body?: Request, options?: any) {
+    console.log(body);
+
     const response = await fetch(`${this.baseURL}${url}`, {
       method,
       headers: {
@@ -29,6 +31,8 @@ class HttpClient {
       ...options,
     });
 
+    console.log(response);
+
     return this.handleResponse(response);
   }
 
@@ -37,6 +41,8 @@ class HttpClient {
   }
 
   post(url: string, body?: any, options = {}) {
+    console.log(body);
+
     return this.request(url, HTTP_METHOD.POST, body, options);
   }
 

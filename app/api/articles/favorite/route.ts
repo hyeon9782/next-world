@@ -1,4 +1,4 @@
-import { favoriteArticle, unFavoriteArticle } from '@/api/articles';
+import { favoriteArticleAPI, unFavoriteArticleAPI } from '@/api/articles';
 import { getToken } from '@/utils/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -8,7 +8,7 @@ async function POST(request: NextRequest) {
     const { slug } = await request.json();
     const token = getToken(request);
 
-    const res = await favoriteArticle(slug, token);
+    const res = await favoriteArticleAPI(slug, token);
 
     return NextResponse.json({ message: 'Favorite Success', success: true, data: res });
   } catch (error: any) {
@@ -22,7 +22,7 @@ async function DELETE(request: NextRequest) {
     const { slug } = await request.json();
     const token = getToken(request);
 
-    const res = await unFavoriteArticle(slug, token);
+    const res = await unFavoriteArticleAPI(slug, token);
 
     return NextResponse.json({ message: 'Un Favorite Success', success: true, data: res });
   } catch (error: any) {

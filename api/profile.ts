@@ -1,6 +1,6 @@
 import { httpClient } from './http/httpClient';
 
-const getProfile = (username: string) => {
+const getProfileAPI = (username: string) => {
   return httpClient.get(`/profiles/${username}`);
 };
 
@@ -20,4 +20,4 @@ const unFollowAPI = (username: string, token: string) => {
   });
 };
 
-export { getProfile, followAPI, unFollowAPI };
+export { getProfileAPI, followAPI, unFollowAPI };

@@ -1,4 +1,4 @@
-import { getArticlesFeed } from '@/api/articles';
+import { getArticlesFeedAPI } from '@/api/articles';
 import { getToken } from '@/utils/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
 
     const token = getToken(request);
 
-    const { articles, articlesCount } = await getArticlesFeed(Number(page), token);
+    const { articles, articlesCount } = await getArticlesFeedAPI(Number(page), token);
 
     return NextResponse.json({ articles, articlesCount });
   } catch (error: any) {

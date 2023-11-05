@@ -1,4 +1,4 @@
-import { deleteArticle, getArticleAPI, updateArticle } from '@/api/articles';
+import { deleteArticleAPI, getArticleAPI, updateArticleAPI } from '@/api/articles';
 import { getToken } from '@/utils/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -31,7 +31,7 @@ async function PUT(request: NextRequest, route: { params: { slug: string } }) {
     const slug = route.params.slug;
     const token = getToken(request);
 
-    const res = updateArticle(slug, token, body);
+    const res = updateArticleAPI(slug, token, body);
 
     return NextResponse.json({ message: 'Article Update Success', success: true, data: res });
   } catch (error: any) {
@@ -44,7 +44,7 @@ async function DELETE(request: NextRequest, route: { params: { slug: string } })
     const slug = route.params.slug;
     const token = getToken(request);
 
-    const res = deleteArticle(slug, token);
+    const res = deleteArticleAPI(slug, token);
 
     return NextResponse.json({ message: 'Article Delete Success', success: true, data: res });
   } catch (error: any) {

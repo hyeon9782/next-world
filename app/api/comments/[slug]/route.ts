@@ -1,5 +1,4 @@
-import { createComment, deleteComment, getComments } from '@/api/comments';
-import { httpClient } from '@/api/http/httpClient';
+import { createCommentAPI, deleteCommentAPI, getCommentsAPI } from '@/api/comments';
 import { getToken } from '@/utils/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -8,7 +7,9 @@ async function GET(request: NextRequest, route: { params: { slug: string } }) {
     const slug = route.params.slug;
     const token = getToken(request);
 
-    const res = getComments(slug, token);
+    const res = await getCommentsAPI(slug, token);
+
+    console.log(res);
 
     return NextResponse.json({ message: 'Comment Get Success', success: true, data: res });
   } catch (error: any) {
@@ -22,7 +23,12 @@ async function POST(request: NextRequest, route: { params: { slug: string } }) {
     const slug = route.params.slug;
     const token = getToken(request);
 
-    const res = createComment(slug, token, body);
+    console.log(body);
+    // console.log(body.comment);
+
+    const res = await createCommentAPI(slug, token, body);
+
+    console.log(res);
 
     return NextResponse.json({ message: 'Comment Create Success', success: true, data: res });
   } catch (error: any) {
@@ -39,7 +45,7 @@ async function DELETE(request: NextRequest, route: { params: { slug: string } })
 
     const token = getToken(request);
 
-    const res = deleteComment(slug, id, token);
+    const res = deleteCommentAPI(slug, id, token);
 
     return NextResponse.json({ message: 'Comment Delete Success', success: true, data: res });
   } catch (error: any) {

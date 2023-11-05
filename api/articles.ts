@@ -28,7 +28,7 @@ const getArticlesWithFavoritedAPI = (username: string, auth: string, offset = 0,
   });
 };
 
-const getArticlesFeed = (offset = 0, auth: string, limit = 10) => {
+const getArticlesFeedAPI = (offset = 0, auth: string, limit = 10) => {
   return httpClient.get(`/articles/feed?limit=${limit}&offset=${offset ? offset * limit : 0}`, {
     headers: {
       Authorization: `Token ${auth}`,
@@ -44,7 +44,7 @@ const getArticleAPI = (slug: string, token: string) => {
   });
 };
 
-const favoriteArticle = async (slug: string, token: string) => {
+const favoriteArticleAPI = async (slug: string, token: string) => {
   return await httpClient.post(`/articles/${slug}/favorite`, '', {
     headers: {
       Authorization: `Token ${token}`,
@@ -52,7 +52,7 @@ const favoriteArticle = async (slug: string, token: string) => {
   });
 };
 
-const unFavoriteArticle = async (slug: string, token: string) => {
+const unFavoriteArticleAPI = async (slug: string, token: string) => {
   return await httpClient.delete(`/articles/${slug}/favorite`, {
     headers: {
       Authorization: `Token ${token}`,
@@ -60,7 +60,7 @@ const unFavoriteArticle = async (slug: string, token: string) => {
   });
 };
 
-const createArticle = (token: string, body: any) => {
+const createArticleAPI = (token: string, body: any) => {
   return httpClient.post('/articles', body, {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
@@ -69,7 +69,7 @@ const createArticle = (token: string, body: any) => {
   });
 };
 
-const updateArticle = (slug: string, token: string, body: any) => {
+const updateArticleAPI = (slug: string, token: string, body: any) => {
   return httpClient.put(`/articles/${slug}`, body, {
     headers: {
       Authorization: `Token ${token}`,
@@ -77,7 +77,7 @@ const updateArticle = (slug: string, token: string, body: any) => {
   });
 };
 
-const deleteArticle = (slug: string, token: string) => {
+const deleteArticleAPI = (slug: string, token: string) => {
   return httpClient.delete(`/articles/${slug}`, {
     headers: {
       Authorization: `Token ${token}`,
@@ -90,11 +90,11 @@ export {
   getArticlesWithAuthorAPI,
   getArticlesWithFavoritedAPI,
   getArticlesWithTagAPI,
-  getArticlesFeed,
+  getArticlesFeedAPI,
   getArticleAPI,
-  favoriteArticle,
-  unFavoriteArticle,
-  createArticle,
-  updateArticle,
-  deleteArticle,
+  favoriteArticleAPI,
+  unFavoriteArticleAPI,
+  createArticleAPI,
+  updateArticleAPI,
+  deleteArticleAPI,
 };

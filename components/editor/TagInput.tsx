@@ -1,21 +1,28 @@
 'use client';
 
 import { input } from '@/styles/common.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TagList from '../tags/TagList';
 
 type Props = {
   appendTag: (tag: string) => void;
+  tagList?: string[];
 };
 
-const TagInput = ({ appendTag }: Props) => {
+const TagInput = ({ appendTag, tagList }: Props) => {
   const [value, setValue] = useState('');
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[] | any>([]);
+
+  useEffect(() => {
+    if (tagList?.length !== 0) {
+      setTags(tagList);
+    }
+  }, [tagList]);
 
   const handleKeyDown = (e: any) => {
     if (e.key === 'Enter' && value.trim() !== '') {
       appendTag(value);
-      setTags(prev => [...prev, value]);
+      setTags((prev: any) => [...prev, value]);
       setValue('');
     }
   };
