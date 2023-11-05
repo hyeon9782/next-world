@@ -26,7 +26,7 @@ const ArticleTab = () => {
     return () => {
       setTab('global');
     };
-  }, []);
+  }, [pathname, setTab]);
 
   return (
     <ul className={articleTab}>

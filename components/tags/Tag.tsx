@@ -8,7 +8,7 @@ type Props = {
 
 const Tag = ({ tag, onTagClick }: Props) => {
   return (
-    <li className={`${tagItem} ${tagFill}`} onClick={onTagClick ? () => onTagClick(tag) : () => console.log('없음')}>
+    <li className={`${tagItem} ${tagFill}`} onClick={onTagClick ? () => onTagClick(tag) : () => {}}>
       {tag}
     </li>
   );

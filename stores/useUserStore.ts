@@ -34,7 +34,7 @@ const useUserStore = create(
           };
         });
       },
-      updateUser: (user: User) => {
+      updateUserStore: (user: User) => {
         set(() => {
           return {
             ...user,
