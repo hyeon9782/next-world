@@ -19,24 +19,19 @@ class HttpClient {
   }
 
   private async request(url: string, method: string, body?: Request, options?: any) {
-    console.log('request');
+    const mergedHeaders = {
+      ...COMMON_HEADERS,
+      ...options.headers,
+    };
 
-    console.log(body);
-    console.log(method);
-
-    console.log(JSON.stringify(body));
-
-    const response = await fetch(`${this.baseURL}${url}`, {
-      method,
-      headers: {
-        ...COMMON_HEADERS,
-        ...options.headers,
-      },
-      body: body ? JSON.stringify(body) : undefined,
+    const mergedOptions = {
       ...options,
-    });
+      method,
+      headers: mergedHeaders,
+      body: body ? JSON.stringify(body) : undefined,
+    };
 
-    // console.log(response);
+    const response = await fetch(`${this.baseURL}${url}`, mergedOptions);
 
     return this.handleResponse(response);
   }

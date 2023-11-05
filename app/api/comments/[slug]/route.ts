@@ -9,8 +9,6 @@ async function GET(request: NextRequest, route: { params: { slug: string } }) {
 
     const res = await getCommentsAPI(slug, token);
 
-    console.log(res);
-
     return NextResponse.json({ message: 'Comment Get Success', success: true, data: res });
   } catch (error: any) {
     return new NextResponse(error.message, { status: 500 });
@@ -23,12 +21,7 @@ async function POST(request: NextRequest, route: { params: { slug: string } }) {
     const slug = route.params.slug;
     const token = getToken(request);
 
-    console.log(body);
-    // console.log(body.comment);
-
     const res = await createCommentAPI(slug, token, body);
-
-    console.log(res);
 
     return NextResponse.json({ message: 'Comment Create Success', success: true, data: res });
   } catch (error: any) {

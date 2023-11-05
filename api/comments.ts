@@ -9,9 +9,6 @@ const getCommentsAPI = (slug: string, token: string) => {
 };
 
 const createCommentAPI = (slug: string, token: string, body: any) => {
-  console.log(body);
-  console.log(token);
-
   return httpClient.post(`/articles/${slug}/comments`, body, {
     headers: {
       Authorization: `Token ${token}`,
