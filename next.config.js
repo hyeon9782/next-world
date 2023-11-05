@@ -1,4 +1,5 @@
 const { createVanillaExtractPlugin } = require('@vanilla-extract/next-plugin');
+const path = require('path');
 const withVanillaExtract = createVanillaExtractPlugin();
 
 module.exports = withVanillaExtract({
@@ -10,5 +11,8 @@ module.exports = withVanillaExtract({
         port: '',
       },
     ],
+  },
+  experimental: {
+    outputFileTracingRoot: path.join(__dirname, '../../'),
   },
 });
