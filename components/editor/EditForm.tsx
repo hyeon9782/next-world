@@ -4,25 +4,12 @@ import { articleTextarea } from '@/styles/article.css';
 import { input } from '@/styles/common.css';
 import { editorButton, editorForm } from '@/styles/editor.css';
 import TagInput from './TagInput';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-
-import { useRouter } from 'next/navigation';
 import { NewArticle } from '@/types/api/articles';
-import useModalsStore from '@/stores/useModalStore';
-import { modals } from '@/composables/Modals';
+import useArticle from '@/hooks/useArticle';
 
 const EditForm = ({ slug }: { slug?: string }) => {
-  const queryClient = useQueryClient();
-  const router = useRouter();
-  const { openModal, closeModal } = useModalsStore();
-
-  const { data: article } = useQuery({
-    queryKey: ['article', slug],
-    queryFn: async () => await fetch(`/api/articles/${slug}`).then(res => res.json()),
-    enabled: !!slug,
-    select: res => res.data.article,
-  });
+  const { article, createArticle, updateArticle } = useArticle({ slug });
 
   const [formData, setFormData] = useState<NewArticle>({
     title: article ? article.title : '',
@@ -31,38 +18,12 @@ const EditForm = ({ slug }: { slug?: string }) => {
     tagList: article ? [...article.tagList] : [],
   });
 
-  const { mutate } = useMutation({
-    mutationFn: async () => {
-      if (slug) {
-        return fetch(`/api/articles/${slug}`, { method: 'PUT', body: JSON.stringify({ article: formData }) }).then(
-          res => res.json()
-        );
-      } else {
-        return fetch('/api/articles/new', { method: 'POST', body: JSON.stringify({ article: formData }) }).then(res =>
-          res.json()
-        );
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['articles', 'global'],
-      });
-      router.push('/');
-    },
-    onError: (error: any) => {
-      openModal(modals.alert, {
-        title: '',
-        content: '게시글 수정에 실패했습니다!',
-        onClose: () => {
-          closeModal(modals.alert);
-        },
-      });
-      console.error(error);
-    },
-  });
-
   const handleClick = () => {
-    mutate();
+    if (slug) {
+      updateArticle(formData);
+    } else {
+      createArticle(formData);
+    }
   };
 
   const handleChange = (e: any) => {

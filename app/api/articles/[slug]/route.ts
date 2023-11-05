@@ -27,17 +27,11 @@ async function GET(request: NextRequest, route: { params: { slug: string } }) {
 
 async function PUT(request: NextRequest, route: { params: { slug: string } }) {
   try {
-    console.log('article 수정 Route');
-
     const body = await request.json();
     const slug = route.params.slug;
     const token = getToken(request);
 
     const res = await updateArticleAPI(slug, token, body);
-
-    console.log('api 후');
-
-    console.log(res);
 
     return NextResponse.json({ message: 'Article Update Success', success: true, data: res });
   } catch (error: any) {

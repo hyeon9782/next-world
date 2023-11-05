@@ -1,15 +1,20 @@
+import { modals } from '@/composables/Modals';
 import { HTTP_METHOD } from '@/constants/api';
+import useModalsStore from '@/stores/useModalStore';
+import { NewArticle } from '@/types/api/articles';
 import { ArticleResponse } from '@/types/route/articles';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-const useArticle = ({ slug }: { slug: string }) => {
+const useArticle = ({ slug }: { slug: string | undefined }) => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const { openModal, closeModal } = useModalsStore();
 
   const { data: article } = useQuery({
     queryKey: ['article', slug],
     queryFn: async () => await fetch(`/api/articles/${slug}`).then(res => res.json()),
+    enabled: !!slug,
     select: res => res.data.article,
   });
 
@@ -163,7 +168,55 @@ const useArticle = ({ slug }: { slug: string }) => {
     },
   });
 
-  return { article, favorite, unFavorite, follow, unFollow };
+  const { mutate: createArticle } = useMutation({
+    mutationFn: async (formData: NewArticle) =>
+      await fetch('/api/articles/new', {
+        method: HTTP_METHOD.POST,
+        body: JSON.stringify({ article: formData }),
+      }).then(res => res.json()),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['articles', 'global'],
+      });
+      router.push('/');
+    },
+    onError: (error: any) => {
+      openModal(modals.alert, {
+        title: '',
+        content: '게시글 생성에 실패했습니다!',
+        onClose: () => {
+          closeModal(modals.alert);
+        },
+      });
+      console.error(error);
+    },
+  });
+
+  const { mutate: updateArticle } = useMutation({
+    mutationFn: async (formData: NewArticle) =>
+      await fetch(`/api/articles/${slug}`, {
+        method: HTTP_METHOD.PUT,
+        body: JSON.stringify({ article: formData }),
+      }).then(res => res.json()),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['articles', 'global'],
+      });
+      router.push('/');
+    },
+    onError: (error: any) => {
+      openModal(modals.alert, {
+        title: '',
+        content: '게시글 수정에 실패했습니다!',
+        onClose: () => {
+          closeModal(modals.alert);
+        },
+      });
+      console.error(error);
+    },
+  });
+
+  return { article, favorite, unFavorite, follow, unFollow, createArticle, updateArticle };
 };
 
 export default useArticle;

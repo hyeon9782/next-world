@@ -12,7 +12,4 @@ module.exports = withVanillaExtract({
       },
     ],
   },
-  experimental: {
-    outputFileTracingRoot: path.join(__dirname, '../../'),
-  },
 });
