@@ -13,13 +13,18 @@ class HttpClient {
       const errorData = await response.json();
       console.log(errorData);
       console.log('실패');
-      throw new Error(errorData.message || 'Request failed');
+      throw new Error(errorData || 'Request failed');
     }
     return response.json();
   }
 
   private async request(url: string, method: string, body?: Request, options?: any) {
+    console.log('request');
+
     console.log(body);
+    console.log(method);
+
+    console.log(JSON.stringify(body));
 
     const response = await fetch(`${this.baseURL}${url}`, {
       method,
@@ -31,7 +36,7 @@ class HttpClient {
       ...options,
     });
 
-    console.log(response);
+    // console.log(response);
 
     return this.handleResponse(response);
   }
@@ -41,8 +46,6 @@ class HttpClient {
   }
 
   post(url: string, body?: any, options = {}) {
-    console.log(body);
-
     return this.request(url, HTTP_METHOD.POST, body, options);
   }
 

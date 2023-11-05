@@ -9,10 +9,13 @@ import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 import { NewArticle } from '@/types/api/articles';
+import useModalsStore from '@/stores/useModalStore';
+import { modals } from '@/composables/Modals';
 
 const EditForm = ({ slug }: { slug?: string }) => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const { openModal, closeModal } = useModalsStore();
 
   const { data: article } = useQuery({
     queryKey: ['article', slug],
@@ -47,6 +50,13 @@ const EditForm = ({ slug }: { slug?: string }) => {
       router.push('/');
     },
     onError: (error: any) => {
+      openModal(modals.alert, {
+        title: '',
+        content: '게시글 수정에 실패했습니다!',
+        onClose: () => {
+          closeModal(modals.alert);
+        },
+      });
       console.error(error);
     },
   });

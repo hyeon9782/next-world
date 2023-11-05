@@ -12,7 +12,6 @@ import { UserAction } from '@/types/store/userStore';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import LogoutButton from './LogoutButton';
 
 const SettingForm = () => {
   const router = useRouter();
@@ -48,6 +47,13 @@ const SettingForm = () => {
     },
     onError: () => {
       alert('실패');
+      openModal(modals.alert, {
+        title: '',
+        content: '회원 정보 변경에 실패했습니다.',
+        onClose: () => {
+          closeModal(modals.alert);
+        },
+      });
     },
   });
   const handleSubmit = async (e: any) => {

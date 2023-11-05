@@ -63,14 +63,15 @@ const unFavoriteArticleAPI = async (slug: string, token: string) => {
 const createArticleAPI = (token: string, body: any) => {
   return httpClient.post('/articles', body, {
     headers: {
-      'Content-Type': 'application/json; charset=utf-8',
       Authorization: `Token ${token}`,
     },
   });
 };
 
-const updateArticleAPI = (slug: string, token: string, body: any) => {
-  return httpClient.put(`/articles/${slug}`, body, {
+const updateArticleAPI = async (slug: string, token: string, body: any) => {
+  console.log(slug);
+
+  return await httpClient.put(`/articles/${slug}`, body, {
     headers: {
       Authorization: `Token ${token}`,
     },
