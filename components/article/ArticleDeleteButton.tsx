@@ -2,13 +2,11 @@
 import Button from '@/composables/Button';
 import { modals } from '@/composables/Modals';
 import { HTTP_METHOD } from '@/constants/api';
-import useArticles from '@/hooks/useArticles';
 import useModalsStore from '@/stores/useModalStore';
 import { useRouter } from 'next/navigation';
 
 const ArticleDeleteButton = ({ slug }: { slug: string }) => {
   const router = useRouter();
-  // const { deleteArticle } = useArticles();
   const { openModal, closeModal } = useModalsStore();
 
   const handleButtonClick = async () => {
