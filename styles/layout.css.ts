@@ -60,7 +60,7 @@ export const sideBar = style({
   padding: '5px 10px 10px 10px',
   background: '#f3f3f3',
   borderRadius: '4px',
-  width: 255,
+  width: '100%',
 });
 
 export const sideBarText = style({

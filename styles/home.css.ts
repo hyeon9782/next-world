@@ -1,10 +1,36 @@
 import { style } from '@vanilla-extract/css';
 
+export type ResponsiveStyleParams = {
+  tablet: {
+    width: string;
+  };
+  desktop: {
+    width: string;
+  };
+};
+
+const responsiveStyle = ({ tablet, desktop }: ResponsiveStyleParams) => ({
+  '@media': {
+    'screen and (min-width: 768px)': tablet,
+    'screen and (min-width: 1024px)': desktop,
+  },
+});
+
+export const homeSection = style([
+  {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  responsiveStyle({
+    tablet: { width: '768px' },
+    desktop: { width: '1140px' },
+  }),
+]);
+
 export const banner = style([
   {
     padding: '2rem',
     color: '#fff',
-    marginBottom: '2rem',
     boxShadow: 'inset 0 8px 8px -8px rgba(0, 0, 0, 0.3), inset 0 -8px 8px -8px rgba(0, 0, 0, 0.3)',
   },
 ]);

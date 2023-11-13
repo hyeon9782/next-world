@@ -11,7 +11,4 @@ module.exports = withVanillaExtract({
       },
     ],
   },
-  experimental: {
-    webpackBuildWorker: true,
-  },
 });
