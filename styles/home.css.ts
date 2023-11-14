@@ -1,13 +1,5 @@
 import { style } from '@vanilla-extract/css';
-
-export type ResponsiveStyleParams = {
-  tablet: {
-    width: string;
-  };
-  desktop: {
-    width: string;
-  };
-};
+import { ResponsiveStyleParams } from './common.css';
 
 const responsiveStyle = ({ tablet, desktop }: ResponsiveStyleParams) => ({
   '@media': {

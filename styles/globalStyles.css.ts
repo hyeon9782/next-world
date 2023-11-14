@@ -12,9 +12,9 @@ globalStyle('a', {
   textDecorationLine: 'none',
 });
 
-globalStyle('main', {
-  marginBottom: '100px',
-});
+// globalStyle('main', {
+//   marginBottom: '100px',
+// });
 
 globalStyle('textarea', {
   resize: 'vertical',

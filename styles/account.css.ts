@@ -8,6 +8,14 @@ const responsiveStyle = ({ tablet, desktop }: ResponsiveStyleParams) => ({
   },
 });
 
+export const accountContainer = style({
+  height: 'calc(100vh - 115px)',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
 export const title = style({
   fontSize: '2.5rem',
   marginBottom: '0.5rem',

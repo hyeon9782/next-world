@@ -1,13 +1,13 @@
 import FormHead from '@/components/account/FormHead';
 import SignUpForm from '@/components/account/SignUpForm';
-import { container, flexRow, flexCenter } from '@/styles/common.css';
+import { accountContainer } from '@/styles/account.css';
 
 const RegisterPage = () => {
   return (
-    <section className={`${container} ${flexRow} ${flexCenter}`}>
+    <main className={accountContainer}>
       <FormHead titleText="Sign up" questionText="Have an account?" />
       <SignUpForm />
-    </section>
+    </main>
   );
 };
 

@@ -2,7 +2,7 @@ import SideBar from '@/components/layouts/SideBar';
 import ArticleListSkeleton from '@/components/article/ArticleListSkeleton';
 
 import { articleContainer } from '@/styles/article.css';
-import { container, textCenter, flex } from '@/styles/common.css';
+import { container, textCenter } from '@/styles/common.css';
 import { bannerDescription, bannerTitle, homeSection } from '@/styles/home.css';
 import dynamic from 'next/dynamic';
 
