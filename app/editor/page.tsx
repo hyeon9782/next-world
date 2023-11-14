@@ -1,9 +1,9 @@
 import EditForm from '@/components/editor/EditForm';
-import { container } from '@/styles/common.css';
+import { editorContainer } from '@/styles/editor.css';
 
 const EditorPage = () => {
   return (
-    <section className={container}>
+    <section className={editorContainer}>
       <EditForm />
     </section>
   );

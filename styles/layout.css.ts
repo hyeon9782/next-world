@@ -1,4 +1,12 @@
 import { style } from '@vanilla-extract/css';
+import { ResponsiveStyleParams } from './common.css';
+
+const responsiveStyle = ({ tablet, desktop }: ResponsiveStyleParams) => ({
+  '@media': {
+    'screen and (min-width: 768px)': tablet,
+    'screen and (min-width: 1024px)': desktop,
+  },
+});
 
 export const header = style({
   display: 'flex',
@@ -43,6 +51,16 @@ export const nav = style({
   alignItems: 'center',
   gap: 15,
 });
+
+export const navText = style([
+  {
+    display: 'none',
+  },
+  responsiveStyle({
+    tablet: { display: 'block' },
+    desktop: { display: 'block' },
+  }),
+]);
 
 export const navItem = style({
   padding: '0.425rem 0px',

@@ -55,7 +55,7 @@ const NavBar = () => {
                 className={`${styles.navItem} ${pathname === href ? styles.activate : styles.disabled}`}
               >
                 {icon} {icon && ' '}
-                {name}
+                <span className={styles.navText}>{name}</span>
               </Link>
             </li>
           ) : null
@@ -67,7 +67,7 @@ const NavBar = () => {
               className={`${styles.navItem} ${pathname === `/@${username}` ? styles.activate : styles.disabled}`}
             >
               <Image src={image} alt="Profile" width={26} height={26} className={userImageSm} />
-              &nbsp; {username}
+              <span className={styles.navText}>&nbsp; {username}</span>
             </Link>
           </li>
         )}

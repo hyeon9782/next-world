@@ -77,7 +77,7 @@ const SettingForm = () => {
           onChange={handleChange}
         />
         <textarea
-          rows={8}
+          rows={2}
           name="bio"
           className={articleTextarea}
           placeholder="Short bio about you"

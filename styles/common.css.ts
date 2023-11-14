@@ -80,9 +80,9 @@ export const flexBetween = style({
 
 export const input = style({
   width: '100%',
-  height: '50px',
-  padding: '0.75rem 1.5rem',
-  fontSize: '1.25rem',
+  // height: '40px',
+  padding: '5px 10px',
+  fontSize: '1rem',
   borderRadius: '0.3rem',
   border: '1px solid rgba(0, 0, 0, 0.15);',
   boxSizing: 'border-box',
