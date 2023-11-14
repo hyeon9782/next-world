@@ -1,11 +1,22 @@
 import { style } from '@vanilla-extract/css';
-import { sidePadding } from './common.css';
+import { ResponsiveStyleParams, sidePadding } from './common.css';
+
+const responsiveStyle = ({ tablet, desktop }: ResponsiveStyleParams) => ({
+  '@media': {
+    'screen and (min-width: 768px)': tablet,
+    'screen and (min-width: 1024px)': desktop,
+  },
+});
 
 export const articleContainer = style([
-  sidePadding,
   {
-    width: '80%',
+    width: '100%',
+    order: 2,
   },
+  responsiveStyle({
+    tablet: { width: '80%' },
+    desktop: { width: '80%' },
+  }),
 ]);
 
 export const articleTab = style({

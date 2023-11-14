@@ -12,8 +12,7 @@ export const header = style({
   display: 'flex',
   justifyContent: 'space-between',
   padding: '0.5rem, 1rem',
-  width: '90%',
-  margin: '0 auto',
+  width: '100%',
 });
 
 export const logo = style({
@@ -74,12 +73,20 @@ export const disabled = style({
   color: 'rgba(0, 0, 0, 0.3)',
 });
 
-export const sideBar = style({
-  padding: '5px 10px 10px 10px',
-  background: '#f3f3f3',
-  borderRadius: '4px',
-  width: '100%',
-});
+export const sideBar = style([
+  {
+    padding: '5px 10px 10px 10px',
+    background: '#f3f3f3',
+    borderRadius: '4px',
+    width: '100%',
+    order: 1,
+    boxSizing: 'border-box',
+  },
+  responsiveStyle({
+    tablet: { order: 3 },
+    desktop: { order: 3 },
+  }),
+]);
 
 export const sideBarText = style({
   margin: 0,

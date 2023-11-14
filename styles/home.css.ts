@@ -8,14 +8,15 @@ const responsiveStyle = ({ tablet, desktop }: ResponsiveStyleParams) => ({
   },
 });
 
-export const homeSection = style([
+export const homeContainer = style([
   {
+    height: 'calc(100vh - 210px)',
     display: 'flex',
     flexDirection: 'column',
   },
   responsiveStyle({
-    tablet: { width: '768px' },
-    desktop: { width: '1140px' },
+    tablet: { flexDirection: 'row' },
+    desktop: { flexDirection: 'row' },
   }),
 ]);
 

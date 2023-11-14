@@ -1,12 +1,8 @@
 import { style } from '@vanilla-extract/css';
 
 export type ResponsiveStyleParams = {
-  tablet: {
-    width: string;
-  };
-  desktop: {
-    width: string;
-  };
+  tablet: any;
+  desktop: any;
 };
 
 const responsiveStyle = ({ tablet, desktop }: ResponsiveStyleParams) => ({
@@ -80,7 +76,6 @@ export const flexBetween = style({
 
 export const input = style({
   width: '100%',
-  // height: '40px',
   padding: '5px 10px',
   fontSize: '1rem',
   borderRadius: '0.3rem',
